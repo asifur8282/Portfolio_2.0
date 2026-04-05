@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,10 +8,13 @@
     <link rel="stylesheet" href="styles.css" />
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
 </head>
+
 <body class="dark-mode"> <!-- Default to dark mode for a better initial glass effect -->
-    
+
     <!-- Animated Background Blobs -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -50,22 +54,29 @@
                 <div class="top-icons-wrapper glass-pill">
                     <a href="mailto:asifurrahaman2018@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
                     <a href="https://github.com/asifur8282" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/asifur06rahaman" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://drive.google.com/file/d/1EsKE-Iig_WedJEeiS6-S5B_4NHdRxk4P/view?usp=sharing" target="_blank" aria-label="View Resume"><i class="fas fa-file-alt"></i></a>
+                    <a href="https://linkedin.com/in/asifur06rahaman" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://drive.google.com/file/d/1EsKE-Iig_WedJEeiS6-S5B_4NHdRxk4P/view?usp=sharing"
+                        target="_blank" aria-label="View Resume"><i class="fas fa-file-alt"></i></a>
                 </div>
             </div>
         </header>
 
         <!-- Left Column: Skills -->
-        <aside id="skills" class="skills-section glass-panel slide-in delay-1">
+        <aside class="skills-section glass-panel slide-in delay-1">
             <h2>Technical Skills</h2>
             <ul class="skills-list">
                 <li class="glass-item"><strong>Programming:</strong> Python, C, Java</li>
-                <li class="glass-item"><strong>AI & ML:</strong> Deep Learning, Computer Vision, TensorFlow, YOLOv8, CNNs, Scikit-learn</li>
-                <li class="glass-item"><strong>MLOps & Backend:</strong> Streamlit, FastAPI, Docker, Joblib, Uvicorn</li>
-                <li class="glass-item"><strong>Tools & Frameworks:</strong> OpenCV, MediaPipe, NumPy, Pandas, NetworkX</li>
-                <li class="glass-item"><strong>Microcontrollers & Robotics:</strong> ESP32, Arduino, Servo & Sensor Integration, PID Control</li>
-                <li class="glass-item"><strong>Generative AI & LLMs:</strong> Prompt Engineering, RAG & Agentic AI (Learning)</li>
+                <li class="glass-item"><strong>AI & ML:</strong> Deep Learning, Computer Vision, TensorFlow, YOLOv8,
+                    CNNs, Scikit-learn</li>
+                <li class="glass-item"><strong>MLOps & Backend:</strong> Streamlit, FastAPI, Docker, Joblib, Uvicorn
+                </li>
+                <li class="glass-item"><strong>Tools & Frameworks:</strong> OpenCV, MediaPipe, NumPy, Pandas, NetworkX
+                </li>
+                <li class="glass-item"><strong>Microcontrollers & Robotics:</strong> ESP32, Arduino, Servo & Sensor
+                    Integration, PID Control</li>
+                <li class="glass-item"><strong>Generative AI & LLMs:</strong> Prompt Engineering, RAG & Agentic AI
+                    (Learning)</li>
                 <li class="glass-item"><strong>Software:</strong> Canva, Adobe Photoshop, PowerPoint</li>
             </ul>
         </aside>
@@ -75,7 +86,10 @@
             <section id="about" class="about glass-panel slide-in delay-2">
                 <h2>About Me</h2>
                 <div class="card-content">
-                    <p>Aspiring AI and ML Engineer passionate about building vision-based intelligent systems that bridge perception and action. Experienced with TensorFlow, OpenCV, and FastAPI, with a focus on real-time robotics and applied AI. Demonstrated success in YOLO model tuning, gaze-based control systems, and self-balancing robotics. Currently advancing skills in RAG and Agentic AI.</p>
+                    <p>Aspiring AI and ML Engineer passionate about building vision-based intelligent systems that
+                        bridge perception and action. Experienced with TensorFlow, OpenCV, and FastAPI, with a focus on
+                        real-time robotics and applied AI. Demonstrated success in YOLO model tuning, gaze-based control
+                        systems, and self-balancing robotics. Currently advancing skills in RAG and Agentic AI.</p>
                 </div>
             </section>
 
@@ -125,7 +139,8 @@
                         </div>
                         <div class="achievement-content">
                             <h3>Winner, On Block Web 3 Hackathon, Kshitij'26 (IIT Kharagpur)</h3>
-                            <p>Ideation and Development of Pulse Pay - A Pay As You Go Payment System using Blockchain.</p>
+                            <p>Ideation and Development of Pulse Pay - A Pay As You Go Payment System using Blockchain.
+                            </p>
                         </div>
                     </article>
 
@@ -156,49 +171,62 @@
                 <div class="projects-grid">
                     <article class="project-card inner-glass">
                         <h3>Classroom Compass (AI Attention Detection System)</h3>
-                        <p>Developed a YOLOv8x segmentation-based pipeline to isolate head-torso regions of students. Integrated a TensorFlow CNN model to classify focused vs. distracted students and served the model via a FastAPI backend.</p>
+                        <p>Developed a YOLOv8x segmentation-based pipeline to isolate head-torso regions of students.
+                            Integrated a TensorFlow CNN model to classify focused vs. distracted students and served the
+                            model via a FastAPI backend.</p>
                         <div class="links">
-                            <a href="https://github.com/Classroom-Compass" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Main Project</a>
-                            <a href="https://github.com/asifur8282/Classroom-Person-Segregation-Model" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Segregation</a>
-                            <a href="https://github.com/asifur8282/Classroom-Compass-Classifier" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Classifier</a>
+                            <a href="https://github.com/Classroom-Compass" target="_blank" class="glass-chip"><i
+                                    class="fab fa-github"></i> Main Project</a>
+                            <a href="https://github.com/asifur8282/Classroom-Person-Segregation-Model" target="_blank"
+                                class="glass-chip"><i class="fab fa-github"></i> Segregation</a>
+                            <a href="https://github.com/asifur8282/Classroom-Compass-Classifier" target="_blank"
+                                class="glass-chip"><i class="fab fa-github"></i> Classifier</a>
                         </div>
                     </article>
                     <article class="project-card inner-glass">
                         <h3>Heart Disease Prediction Model</h3>
-                        <p>Trained a SVM model to predict heart disease risk based on patient attributes, achieving 90% accuracy. Showcased various data preprocessing techniques. Trained on open source dataset from Kaggle.</p>
+                        <p>Trained a SVM model to predict heart disease risk based on patient attributes, achieving 90%
+                            accuracy. Showcased various data preprocessing techniques. Trained on open source dataset
+                            from Kaggle.</p>
                         <div class="links">
-                            <a href="https://github.com/asifur8282/Heart-Disease-Prediction" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Repository</a>
+                            <a href="https://github.com/asifur8282/Heart-Disease-Prediction" target="_blank"
+                                class="glass-chip"><i class="fab fa-github"></i> Repository</a>
                         </div>
                     </article>
                     <article class="project-card inner-glass">
                         <h3>Vision-Guided GazeBot</h3>
-                        <p>Built a camera-based control interface where an ESP32-driven robotic vehicle aligns its direction with the user's head position tracked via MediaPipe and OpenCV.</p>
+                        <p>Built a camera-based control interface where an ESP32-driven robotic vehicle aligns its
+                            direction with the user's head position tracked via MediaPipe and OpenCV.</p>
                         <div class="links">
-                            <a href="https://github.com/asifur8282/ML-Vision-Guided-GazeBot" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Repository</a>
+                            <a href="https://github.com/asifur8282/ML-Vision-Guided-GazeBot" target="_blank"
+                                class="glass-chip"><i class="fab fa-github"></i> Repository</a>
                         </div>
                     </article>
                     <article class="project-card inner-glass">
                         <h3>PID-Based Self-Balancing Bot</h3>
-                        <p>Designed a two-wheeled bot using PID control algorithms for dynamic balance correction. Integrated sensor feedback and motor control loops for stability optimization.</p>
+                        <p>Designed a two-wheeled bot using PID control algorithms for dynamic balance correction.
+                            Integrated sensor feedback and motor control loops for stability optimization.</p>
                     </article>
                     <article class="project-card inner-glass">
                         <h3>Earthquake Survivor Detection (YOLO Model Tuning)</h3>
-                        <p>Tuned a YOLO-based object detector for post-disaster search-and-rescue tasks to identify survivors or critical objects in rubble imagery.</p>
+                        <p>Tuned a YOLO-based object detector for post-disaster search-and-rescue tasks to identify
+                            survivors or critical objects in rubble imagery.</p>
                     </article>
                     <article class="project-card inner-glass">
                         <h3>Iris Flower Prediction</h3>
-                        <p>Implemented a Decision Tree Classifier using scikit-learn to classify iris flower species, demonstrating understanding of supervised learning workflows.</p>
+                        <p>Implemented a Decision Tree Classifier using scikit-learn to classify iris flower species,
+                            demonstrating understanding of supervised learning workflows.</p>
                     </article>
                 </div>
             </section>
-            
+
             <footer class="glass-panel slide-in delay-6">
                 <p>&copy; 2026 Asifur Rahaman. All rights reserved.</p>
             </footer>
         </div>
 
         <!-- Right Column: Certifications -->
-        <aside id="certifications" class="certifications-section glass-panel slide-in delay-1">
+        <aside class="certifications-section glass-panel slide-in delay-1">
             <h2>Certifications</h2>
             <ul class="certs-list">
                 <li class="glass-item"><strong>IBM:</strong> Generative AI: Prompt Engineering Basics</li>
@@ -207,12 +235,15 @@
                 <li class="glass-item"><strong>Google:</strong> Introduction to AI</li>
                 <li class="glass-item"><strong>Google:</strong> Maximize Productivity With AI Tools</li>
                 <li class="glass-item"><strong>Google:</strong> Discover the Art of Prompting</li>
-                <li class="glass-item"><strong>NPTEL:</strong> Programming, Data Structures and Algorithms Using Python</li>
+                <li class="glass-item"><strong>NPTEL:</strong> Programming, Data Structures and Algorithms Using Python
+                </li>
                 <li class="glass-item"><strong>NPTEL:</strong> The Joy of Computing Using Python</li>
-                <li class="glass-item"><strong>Duke University:</strong> Java Programming: Solving Problems with Software</li>
+                <li class="glass-item"><strong>Duke University:</strong> Java Programming: Solving Problems with
+                    Software</li>
             </ul>
         </aside>
 
     </main>
 </body>
+
 </html>

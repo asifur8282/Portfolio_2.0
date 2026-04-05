@@ -1,5 +1,4 @@
-/* --- GOOGLE FONTS --- */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+/* Google Sans loaded via HTML */
 
 /* --- GLOBAL VARIABLES --- */
 :root {
@@ -62,7 +61,7 @@ html {
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Google Sans', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.5s ease, color 0.5s ease;
