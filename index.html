@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asifur Rahaman | Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode"> <!-- Default to dark mode for a better initial glass effect -->
+    
+    <!-- Animated Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+
+    <nav class="navbar glass-panel" aria-label="Main navigation">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li class="nav-skills-link"><a href="#skills">Skills</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li class="nav-certifications-link"><a href="#certifications">Certifications</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li>
+                <button id="darkModeToggle" class="dark-mode-btn glass-btn" aria-label="Toggle dark mode">
+                    <span id="darkModeIcon">☀️</span>
+                    <span id="darkModeText">Light Mode</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- Main Header -->
+        <header class="glass-panel main-header slide-in">
+            <div class="photo-frame">
+                <img src="asifurimage.jpg" alt="Asifur's Photo" id="profile-pic" loading="lazy">
+            </div>
+            <h1>Asifur Rahaman</h1>
+            <p>AI & ML Developer | Computer Vision and Robotics Enthusiast</p>
+            <div class="contact-icons">
+                <div id="locationIconWrapper" class="location glass-pill" aria-label="Location: Kolkata, West Bengal">
+                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                    <span id="locationText">Kolkata, West Bengal</span>
+                </div>
+                <div class="top-icons-wrapper glass-pill">
+                    <a href="mailto:asifurrahaman2018@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/asifur8282" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/asifur06rahaman" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://drive.google.com/file/d/1EsKE-Iig_WedJEeiS6-S5B_4NHdRxk4P/view?usp=sharing" target="_blank" aria-label="View Resume"><i class="fas fa-file-alt"></i></a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Left Column: Skills -->
+        <aside id="skills" class="skills-section glass-panel slide-in delay-1">
+            <h2>Technical Skills</h2>
+            <ul class="skills-list">
+                <li class="glass-item"><strong>Programming:</strong> Python, C, Java</li>
+                <li class="glass-item"><strong>AI & ML:</strong> Deep Learning, Computer Vision, TensorFlow, YOLOv8, CNNs, Scikit-learn</li>
+                <li class="glass-item"><strong>MLOps & Backend:</strong> Streamlit, FastAPI, Docker, Joblib, Uvicorn</li>
+                <li class="glass-item"><strong>Tools & Frameworks:</strong> OpenCV, MediaPipe, NumPy, Pandas, NetworkX</li>
+                <li class="glass-item"><strong>Microcontrollers & Robotics:</strong> ESP32, Arduino, Servo & Sensor Integration, PID Control</li>
+                <li class="glass-item"><strong>Generative AI & LLMs:</strong> Prompt Engineering, RAG & Agentic AI (Learning)</li>
+                <li class="glass-item"><strong>Software:</strong> Canva, Adobe Photoshop, PowerPoint</li>
+            </ul>
+        </aside>
+
+        <!-- Center Column: Main Content -->
+        <div class="main-content">
+            <section id="about" class="about glass-panel slide-in delay-2">
+                <h2>About Me</h2>
+                <div class="card-content">
+                    <p>Aspiring AI and ML Engineer passionate about building vision-based intelligent systems that bridge perception and action. Experienced with TensorFlow, OpenCV, and FastAPI, with a focus on real-time robotics and applied AI. Demonstrated success in YOLO model tuning, gaze-based control systems, and self-balancing robotics. Currently advancing skills in RAG and Agentic AI.</p>
+                </div>
+            </section>
+
+            <section id="education" class="education glass-panel slide-in delay-3">
+                <h2>Education</h2>
+                <div class="card-content education-list">
+                    <div class="glass-item">
+                        <strong>Techno International New Town (2024–2028)</strong>
+                        <span>B.Tech in Computer Science and Engineering - Pursuing</span>
+                        <span>1st Year Y.G.P.A - 8.03</span>
+                    </div>
+                    <div class="glass-item">
+                        <strong>Saifee Golden Jubilee English Public School (2010–2024)</strong>
+                        <span>Class XII - ISC: 84.67%</span>
+                        <span>Class X - ICSE: 92.33%</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="achievements" class="achievements glass-panel slide-in delay-4">
+                <h2>Achievements</h2>
+                <div class="achievements-grid">
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <!-- Add image in achievements-images/ folder -->
+                            <div class="img-placeholder"><i class="fas fa-image"></i></div>
+                        </div>
+                        <div class="achievement-content">
+                            <h3>TINT Project Showcase 1st Runners Up</h3>
+                            <p>28th February, 2026</p>
+                        </div>
+                    </article>
+
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <div class="img-placeholder"><i class="fas fa-trophy"></i></div>
+                        </div>
+                        <div class="achievement-content">
+                            <h3>Runner-up, Equilibrix - Srijan'25 (Jadavpur University)</h3>
+                            <p>Built a self-balancing robot using PID control.</p>
+                        </div>
+                    </article>
+
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <div class="img-placeholder"><i class="fas fa-medal"></i></div>
+                        </div>
+                        <div class="achievement-content">
+                            <h3>Winner, On Block Web 3 Hackathon, Kshitij'26 (IIT Kharagpur)</h3>
+                            <p>Ideation and Development of Pulse Pay - A Pay As You Go Payment System using Blockchain.</p>
+                        </div>
+                    </article>
+
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <div class="img-placeholder"><i class="fas fa-award"></i></div>
+                        </div>
+                        <div class="achievement-content">
+                            <h3>Runner-up, Tech Twister (Tech Quiz)</h3>
+                            <p>Techno International New Town.</p>
+                        </div>
+                    </article>
+
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <div class="img-placeholder"><i class="fas fa-users"></i></div>
+                        </div>
+                        <div class="achievement-content">
+                            <h3>Selected among 130+ teams</h3>
+                            <p>Internal Smart India Hackathon 2025 at Techno International New Town.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="projects" class="projects glass-panel slide-in delay-5">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    <article class="project-card inner-glass">
+                        <h3>Classroom Compass (AI Attention Detection System)</h3>
+                        <p>Developed a YOLOv8x segmentation-based pipeline to isolate head-torso regions of students. Integrated a TensorFlow CNN model to classify focused vs. distracted students and served the model via a FastAPI backend.</p>
+                        <div class="links">
+                            <a href="https://github.com/Classroom-Compass" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Main Project</a>
+                            <a href="https://github.com/asifur8282/Classroom-Person-Segregation-Model" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Segregation</a>
+                            <a href="https://github.com/asifur8282/Classroom-Compass-Classifier" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Classifier</a>
+                        </div>
+                    </article>
+                    <article class="project-card inner-glass">
+                        <h3>Heart Disease Prediction Model</h3>
+                        <p>Trained a SVM model to predict heart disease risk based on patient attributes, achieving 90% accuracy. Showcased various data preprocessing techniques. Trained on open source dataset from Kaggle.</p>
+                        <div class="links">
+                            <a href="https://github.com/asifur8282/Heart-Disease-Prediction" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Repository</a>
+                        </div>
+                    </article>
+                    <article class="project-card inner-glass">
+                        <h3>Vision-Guided GazeBot</h3>
+                        <p>Built a camera-based control interface where an ESP32-driven robotic vehicle aligns its direction with the user's head position tracked via MediaPipe and OpenCV.</p>
+                        <div class="links">
+                            <a href="https://github.com/asifur8282/ML-Vision-Guided-GazeBot" target="_blank" class="glass-chip"><i class="fab fa-github"></i> Repository</a>
+                        </div>
+                    </article>
+                    <article class="project-card inner-glass">
+                        <h3>PID-Based Self-Balancing Bot</h3>
+                        <p>Designed a two-wheeled bot using PID control algorithms for dynamic balance correction. Integrated sensor feedback and motor control loops for stability optimization.</p>
+                    </article>
+                    <article class="project-card inner-glass">
+                        <h3>Earthquake Survivor Detection (YOLO Model Tuning)</h3>
+                        <p>Tuned a YOLO-based object detector for post-disaster search-and-rescue tasks to identify survivors or critical objects in rubble imagery.</p>
+                    </article>
+                    <article class="project-card inner-glass">
+                        <h3>Iris Flower Prediction</h3>
+                        <p>Implemented a Decision Tree Classifier using scikit-learn to classify iris flower species, demonstrating understanding of supervised learning workflows.</p>
+                    </article>
+                </div>
+            </section>
+            
+            <footer class="glass-panel slide-in delay-6">
+                <p>&copy; 2026 Asifur Rahaman. All rights reserved.</p>
+            </footer>
+        </div>
+
+        <!-- Right Column: Certifications -->
+        <aside id="certifications" class="certifications-section glass-panel slide-in delay-1">
+            <h2>Certifications</h2>
+            <ul class="certs-list">
+                <li class="glass-item"><strong>IBM:</strong> Generative AI: Prompt Engineering Basics</li>
+                <li class="glass-item"><strong>IBM:</strong> Generative AI: Introduction and Applications</li>
+                <li class="glass-item"><strong>IBM:</strong> Generative AI for Software Developers</li>
+                <li class="glass-item"><strong>Google:</strong> Introduction to AI</li>
+                <li class="glass-item"><strong>Google:</strong> Maximize Productivity With AI Tools</li>
+                <li class="glass-item"><strong>Google:</strong> Discover the Art of Prompting</li>
+                <li class="glass-item"><strong>NPTEL:</strong> Programming, Data Structures and Algorithms Using Python</li>
+                <li class="glass-item"><strong>NPTEL:</strong> The Joy of Computing Using Python</li>
+                <li class="glass-item"><strong>Duke University:</strong> Java Programming: Solving Problems with Software</li>
+            </ul>
+        </aside>
+
+    </main>
+</body>
+</html>
