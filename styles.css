@@ -397,8 +397,8 @@ ul {
 }
 
 .achievement-img-wrapper {
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 110px;
     flex-shrink: 0;
     border-radius: 12px;
     overflow: hidden;
@@ -571,6 +571,9 @@ footer {
         font-size: 2.2rem;
     }
     
+}
+
+@media (max-width: 500px) {
     .achievement-card {
         flex-direction: column;
         align-items: flex-start;
@@ -579,6 +582,7 @@ footer {
     
     .achievement-img-wrapper {
         width: 100%;
-        height: 150px;
+        height: auto;
+        aspect-ratio: 16 / 9;
     }
 }

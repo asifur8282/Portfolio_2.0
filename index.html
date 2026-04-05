@@ -63,7 +63,7 @@
         </header>
 
         <!-- Left Column: Skills -->
-        <aside class="skills-section glass-panel slide-in delay-1">
+        <aside id="skills" class="skills-section glass-panel slide-in delay-1">
             <h2>Technical Skills</h2>
             <ul class="skills-list">
                 <li class="glass-item"><strong>Programming:</strong> Python, C, Java</li>
@@ -106,63 +106,6 @@
                         <span>Class XII - ISC: 84.67%</span>
                         <span>Class X - ICSE: 92.33%</span>
                     </div>
-                </div>
-            </section>
-
-            <section id="achievements" class="achievements glass-panel slide-in delay-4">
-                <h2>Achievements</h2>
-                <div class="achievements-grid">
-                    <article class="achievement-card inner-glass">
-                        <div class="achievement-img-wrapper">
-                            <!-- Add image in achievements-images/ folder -->
-                            <div class="img-placeholder"><i class="fas fa-image"></i></div>
-                        </div>
-                        <div class="achievement-content">
-                            <h3>TINT Project Showcase 1st Runners Up</h3>
-                            <p>28th February, 2026</p>
-                        </div>
-                    </article>
-
-                    <article class="achievement-card inner-glass">
-                        <div class="achievement-img-wrapper">
-                            <div class="img-placeholder"><i class="fas fa-trophy"></i></div>
-                        </div>
-                        <div class="achievement-content">
-                            <h3>Runner-up, Equilibrix - Srijan'25 (Jadavpur University)</h3>
-                            <p>Built a self-balancing robot using PID control.</p>
-                        </div>
-                    </article>
-
-                    <article class="achievement-card inner-glass">
-                        <div class="achievement-img-wrapper">
-                            <div class="img-placeholder"><i class="fas fa-medal"></i></div>
-                        </div>
-                        <div class="achievement-content">
-                            <h3>Winner, On Block Web 3 Hackathon, Kshitij'26 (IIT Kharagpur)</h3>
-                            <p>Ideation and Development of Pulse Pay - A Pay As You Go Payment System using Blockchain.
-                            </p>
-                        </div>
-                    </article>
-
-                    <article class="achievement-card inner-glass">
-                        <div class="achievement-img-wrapper">
-                            <div class="img-placeholder"><i class="fas fa-award"></i></div>
-                        </div>
-                        <div class="achievement-content">
-                            <h3>Runner-up, Tech Twister (Tech Quiz)</h3>
-                            <p>Techno International New Town.</p>
-                        </div>
-                    </article>
-
-                    <article class="achievement-card inner-glass">
-                        <div class="achievement-img-wrapper">
-                            <div class="img-placeholder"><i class="fas fa-users"></i></div>
-                        </div>
-                        <div class="achievement-content">
-                            <h3>Selected among 130+ teams</h3>
-                            <p>Internal Smart India Hackathon 2025 at Techno International New Town.</p>
-                        </div>
-                    </article>
                 </div>
             </section>
 
@@ -220,13 +163,66 @@
                 </div>
             </section>
 
-            <footer class="glass-panel slide-in delay-6">
-                <p>&copy; 2026 Asifur Rahaman. All rights reserved.</p>
-            </footer>
+            <section id="achievements" class="achievements glass-panel slide-in delay-4">
+                <h2>Achievements</h2>
+                <div class="achievements-grid">
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <!-- Add image in achievements-images/ folder -->
+                            <img src="achievements-images/TINT Project Showcase.jpg" class="achievement-photo" alt="TINT Showcase">
+                        </div>
+                        <div class="achievement-content">
+                            <h3>TINT Project Showcase 1st Runners Up</h3>
+                            <p>28th February, 2026</p>
+                        </div>
+                    </article>
+
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <img src="achievements-images/Equilibrix Jadavpur University.jpg" class="achievement-photo" alt="Jadavpur Srijan">
+                        </div>
+                        <div class="achievement-content">
+                            <h3>Runner-up, Equilibrix - Srijan'25 (Jadavpur University)</h3>
+                            <p>Built a self-balancing robot using PID control.</p>
+                        </div>
+                    </article>
+
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <img src="achievements-images/IIT Khargpur.jpg" class="achievement-photo" alt="IIT KGP">
+                        </div>
+                        <div class="achievement-content">
+                            <h3>Winner, On Block Web 3 Hackathon, Kshitij'26 (IIT Kharagpur)</h3>
+                            <p>Ideation and Development of Pulse Pay - A Pay As You Go Payment System using Blockchain.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <img src="achievements-images/Tech Twiser Tech Quiz.jpg" class="achievement-photo" alt="Tech Quiz">
+                        </div>
+                        <div class="achievement-content">
+                            <h3>Runner-up, Tech Twister (Tech Quiz)</h3>
+                            <p>Techno International New Town.</p>
+                        </div>
+                    </article>
+
+                    <article class="achievement-card inner-glass">
+                        <div class="achievement-img-wrapper">
+                            <div class="img-placeholder"><i class="fas fa-users"></i></div>
+                        </div>
+                        <div class="achievement-content">
+                            <h3>Selected among 130+ teams</h3>
+                            <p>Internal Smart India Hackathon 2025 at Techno International New Town.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
         </div>
 
         <!-- Right Column: Certifications -->
-        <aside class="certifications-section glass-panel slide-in delay-1">
+        <aside id="certifications" class="certifications-section glass-panel slide-in delay-1">
             <h2>Certifications</h2>
             <ul class="certs-list">
                 <li class="glass-item"><strong>IBM:</strong> Generative AI: Prompt Engineering Basics</li>
@@ -242,6 +238,10 @@
                     Software</li>
             </ul>
         </aside>
+
+        <footer class="glass-panel slide-in delay-6" style="grid-column: 1 / -1; margin-top: -10px;">
+            <p>&copy; 2026 Asifur Rahaman. All rights reserved.</p>
+        </footer>
 
     </main>
 </body>
