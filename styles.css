@@ -568,13 +568,37 @@ footer {
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 1100px) {
     .container {
+        display: grid;
         grid-template-columns: 1fr;
     }
+
+    .main-header { order: 1; }
+    #about { order: 2; }
+    #education { order: 3; }
+    #experience { order: 4; }
+    #projects { order: 5; }
+    #skills { order: 6; }
+    #achievements { order: 7; }
+    #certifications { order: 8; }
+    footer { order: 9; }
     
     .nav-skills-link, .nav-certifications-link { display: block; }
 }
 
 @media (min-width: 1101px) {
+    .container {
+        align-items: start;
+    }
+
+    .main-header { grid-column: 1 / -1; }
+    
+    #skills { grid-column: 1; grid-row: 2 / span 10; }
+    #certifications { grid-column: 3; grid-row: 2 / span 10; }
+    
+    #about, #experience, #education, #projects, #achievements, footer {
+        grid-column: 2;
+    }
+
     .nav-skills-link, .nav-certifications-link { display: none; }
     
     .skills-section {
