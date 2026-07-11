@@ -370,6 +370,40 @@ ul {
     margin-bottom: 4px;
 }
 
+/* Experience */
+.experience-list .glass-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.exp-header strong {
+    font-size: 1.15rem;
+    color: var(--accent-color);
+}
+
+.exp-date {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.exp-role {
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
 /* Education */
 .education-list .glass-item {
     display: flex;
