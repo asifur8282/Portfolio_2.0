@@ -583,6 +583,16 @@ footer {
     footer { order: 9; }
     
     .nav-skills-link, .nav-certifications-link { display: block; }
+
+    /* Navbar order for Mobile */
+    .nav-about { order: 1; }
+    .nav-education { order: 2; }
+    .nav-experience { order: 3; }
+    .nav-projects { order: 4; }
+    .nav-skills { order: 5; }
+    .nav-achievements { order: 6; }
+    .nav-certifications { order: 7; }
+    .nav-toggle { order: 8; }
 }
 
 @media (min-width: 1101px) {
@@ -600,6 +610,14 @@ footer {
     }
 
     .nav-skills-link, .nav-certifications-link { display: none; }
+
+    /* Navbar order for Desktop */
+    .nav-about { order: 1; }
+    .nav-experience { order: 2; }
+    .nav-education { order: 3; }
+    .nav-projects { order: 4; }
+    .nav-achievements { order: 5; }
+    .nav-toggle { order: 6; }
     
     .skills-section {
         position: sticky;
