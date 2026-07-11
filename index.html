@@ -7,17 +7,22 @@
     <title>Asifur Rahaman | Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
     <script defer src="script.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="asifurimage.webp" as="image" fetchpriority="high">
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    
+
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+    
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet"></noscript>
 </head>
 
-<body class="dark-mode"> <!-- Default to dark mode for a better initial glass effect -->
+<body class="dark-mode"> 
 
-    <!-- Animated Background Blobs -->
+   
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
@@ -42,7 +47,7 @@
     </nav>
 
     <main class="container">
-        <!-- Main Header -->
+       
         <header class="glass-panel main-header slide-in">
             <div class="photo-frame">
                 <img src="asifurimage.webp" alt="Asifur's Photo" id="profile-pic" fetchpriority="high">
@@ -65,7 +70,7 @@
             </div>
         </header>
 
-        <!-- Left Column: Skills -->
+        
         <aside id="skills" class="skills-section glass-panel slide-in delay-1">
             <h2>Technical Skills</h2>
             <ul class="skills-list">
@@ -84,7 +89,7 @@
             </ul>
         </aside>
 
-        <!-- Center Column: Main Content -->
+      
             <section id="about" class="about glass-panel slide-in delay-2">
                 <h2>About Me</h2>
                 <div class="card-content">
@@ -279,7 +284,7 @@
                 <p>&copy; 2026 Asifur Rahaman. All rights reserved.</p>
             </footer>
 
-        <!-- Right Column: Certifications -->
+    
         <aside id="certifications" class="certifications-section glass-panel slide-in delay-1">
             <h2>Certifications</h2>
             <ul class="certs-list">
