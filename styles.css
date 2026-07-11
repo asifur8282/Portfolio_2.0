@@ -597,6 +597,10 @@ footer {
     .skills-section::-webkit-scrollbar, .certifications-section::-webkit-scrollbar {
         width: 6px;
     }
+    .skills-section::-webkit-scrollbar-track, .certifications-section::-webkit-scrollbar-track {
+        margin-block: 20px;
+        background: transparent;
+    }
     .skills-section::-webkit-scrollbar-thumb, .certifications-section::-webkit-scrollbar-thumb {
         background: var(--glass-border);
         border-radius: 10px;
