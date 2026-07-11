@@ -402,6 +402,22 @@ ul {
 .exp-role {
     font-size: 0.95rem;
     color: var(--text-color);
+    font-weight: 500;
+}
+
+.exp-bullets {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.exp-bullets li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
 }
 
 /* Education */
