@@ -1,5 +1,7 @@
 This is the offical portfolio web page of Asifur Rahaman<br>
 A modern, dynamic portfolio website for Asifur Rahaman, featuring a futuristic "Glassmorphism" design aesthetic with animated liquid blobs.<br>
+
+Latest features include experience and achievement images. <br>
 This page is live at:
 
 https://asifur-rahaman-portfolio.vercel.app/
