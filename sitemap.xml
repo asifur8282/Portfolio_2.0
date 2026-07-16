@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://asifur-rahaman-portfolio.vercel.app/</loc>
-    <lastmod>2026-07-12</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://asifur-rahaman-portfolio.vercel.app/asifurimage.webp</image:loc>
+      <image:title>Asifur Rahaman Portrait</image:title>
+      <image:caption>Asifur Rahaman - AI &amp; ML Developer | Computer Vision and Robotics Enthusiast</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://asifur-rahaman-portfolio.vercel.app/achievements-images/ilead.webp</image:loc>
+      <image:title>Winner at ILead Managedia 2026</image:title>
+      <image:caption>First place in Quiz Carnage and Code Blackout at ILead Managedia 2026</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://asifur-rahaman-portfolio.vercel.app/achievements-images/ControlCraft.webp</image:loc>
+      <image:title>Control Craft at Srijan 2026 (Jadavpur University)</image:title>
+      <image:caption>Terrain-covering robotics competition at Jadavpur University</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://asifur-rahaman-portfolio.vercel.app/achievements-images/TINT%20Project%20Showcase.webp</image:loc>
+      <image:title>TINT Project Showcase Runner-Up</image:title>
+      <image:caption>Pulse Pay project showcase at Techno International New Town</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://asifur-rahaman-portfolio.vercel.app/achievements-images/Equilibrix%20Jadavpur%20University.webp</image:loc>
+      <image:title>Runner-Up at Equilibrix (Srijan 2025)</image:title>
+      <image:caption>Self-balancing PID robot exhibition at Jadavpur University</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://asifur-rahaman-portfolio.vercel.app/achievements-images/IIT%20Khargpur.webp</image:loc>
+      <image:title>Winner at On Block Web3 Hackathon (Kshitij 2026, IIT Kharagpur)</image:title>
+      <image:caption>Winning presentation for Pulse Pay at IIT Kharagpur</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://asifur-rahaman-portfolio.vercel.app/achievements-images/Tech%20Twiser%20Tech%20Quiz.webp</image:loc>
+      <image:title>Runner-Up at Tech Twister Quiz</image:title>
+      <image:caption>Tech quiz runner-up at Techno International New Town</image:caption>
+    </image:image>
   </url>
 </urlset>
