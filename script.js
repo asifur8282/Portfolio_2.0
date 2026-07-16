@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
             darkText.textContent = 'Dark Mode';
         }
     }
-    const darkPref = localStorage.getItem('dark-mode') === 'true';
+    const storedPref = localStorage.getItem('dark-mode');
+    const darkPref = storedPref === null ? true : storedPref === 'true';
     setDarkMode(darkPref);
     darkToggle.addEventListener('click', () => {
         const isDark = !document.body.classList.contains('dark-mode');
