@@ -530,9 +530,12 @@ textarea.glass-input {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .primary-btn:hover {
-    background: var(--accent-hover);
+    background: #1664c0; 
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+body.dark-mode .primary-btn:hover {
+    background: #008cd5; 
 }
 .primary-btn:active {
     transform: translateY(0);
