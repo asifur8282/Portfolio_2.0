@@ -606,13 +606,13 @@ body.dark-mode .form-status-msg.info {
     footer { order: 10; }
     .nav-skills-link, .nav-certifications-link { display: block; }
     .nav-about { order: 1; }
-    .nav-education { order: 2; }
-    .nav-experience { order: 3; }
-    .nav-projects { order: 4; }
-    .nav-skills { order: 5; }
-    .nav-achievements { order: 6; }
-    .nav-certifications { order: 7; }
-    .nav-contact { order: 8; }
+    .nav-contact { order: 2; }
+    .nav-education { order: 3; }
+    .nav-experience { order: 4; }
+    .nav-projects { order: 5; }
+    .nav-skills { order: 6; }
+    .nav-achievements { order: 7; }
+    .nav-certifications { order: 8; }
     .nav-toggle { order: 9; }
 }
 @media (min-width: 1101px) {
@@ -627,11 +627,12 @@ body.dark-mode .form-status-msg.info {
     }
     .nav-skills-link, .nav-certifications-link { display: none; }
     .nav-about { order: 1; }
-    .nav-experience { order: 2; }
-    .nav-education { order: 3; }
-    .nav-projects { order: 4; }
-    .nav-achievements { order: 5; }
-    .nav-toggle { order: 6; }
+    .nav-contact { order: 2; }
+    .nav-experience { order: 3; }
+    .nav-education { order: 4; }
+    .nav-projects { order: 5; }
+    .nav-achievements { order: 6; }
+    .nav-toggle { order: 7; }
     .skills-section {
         position: sticky;
         top: 100px;
