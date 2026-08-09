@@ -1,0 +1,54 @@
+# Asifur Rahaman
+
+> Portfolio of Asifur Rahaman, an AI & ML Developer, Computer Vision developer, and Robotics enthusiast based in Kolkata, India.
+
+## Contact Information
+- [Email](mailto:asifurrahaman2018@gmail.com) - asifurrahaman2018@gmail.com
+- [GitHub Profile](https://github.com/asifur8282) - @asifur8282
+- [LinkedIn Profile](https://linkedin.com/in/asifur06rahaman) - asifur06rahaman
+- [Google Drive Resume](https://drive.google.com/file/d/15oWowPVIAo07UF3ZkDwc-2dcF7dG3gUZ/view?usp=sharing) - Current Resume
+- [Portfolio Website](https://asifur-rahaman-portfolio.vercel.app/) - Live Portfolio
+
+## Technical Skills
+- **Programming Languages:** Python, C, Java
+- **AI & Machine Learning:** Deep Learning, Computer Vision, TensorFlow, YOLOv8, CNNs, Scikit-learn
+- **MLOps & Backend:** Streamlit, FastAPI, Docker, Uvicorn
+- **Tools & Frameworks:** OpenCV, MediaPipe, NumPy, Pandas, NetworkX
+- **Microcontrollers & Robotics:** ESP32, Arduino, Servo & Sensor Integration, PID Control
+- **Generative AI:** Prompt Engineering, Retrieval-Augmented Generation (RAG) & Agentic AI (currently learning)
+- **General Software:** Canva, Adobe Photoshop, PowerPoint
+
+## Key Projects
+- [Classroom Compass (Main)](https://github.com/Classroom-Compass) - AI Attention Detection System. Uses a YOLOv8x segmentation-based pipeline to isolate head-torso regions of students, with a TensorFlow CNN model to classify focused vs. distracted states, served via a FastAPI backend.
+  - [Person Segregation Model](https://github.com/asifur8282/Classroom-Person-Segregation-Model)
+  - [Classifier Model](https://github.com/asifur8282/Classroom-Compass-Classifier)
+- [Vision-Guided GazeBot](https://github.com/asifur8282/ML-Vision-Guided-GazeBot) - Camera-based control interface where an ESP32-driven robotic vehicle aligns its direction with the user's head position tracked via MediaPipe and OpenCV.
+- [Heart Disease Prediction Model](https://github.com/asifur8282/Heart-Disease-Prediction) - SVM model predicting heart disease risk based on patient attributes with 90% accuracy, trained on a Kaggle dataset.
+- [CSV to WhatsApp Messages](https://github.com/asifur8282/CSV-to-Whatsapp-Messages) - Automated workflow using Python (Selenium) to read CSV files and send formatted WhatsApp messages for event management.
+- **PID-Based Self-Balancing Bot** - A two-wheeled robot using PID control loops and sensor feedback for dynamic stability.
+- **Earthquake Survivor Detection** - YOLO model tuning for post-disaster search-and-rescue.
+- **Iris Flower Prediction** - Decision Tree Classifier using scikit-learn.
+
+## Professional Experience
+- **Google Student Ambassador** (June 2026 – Present)
+  - Promoting the use of Gemini as a tool for content creation and learning.
+- **Campus Ambassador at Kshitij, IIT Kharagpur** (Oct 2025 – Jan 2026)
+  - Promoted Kshitij events, securing 200+ participations.
+
+## Achievements & Awards
+- **Winner, On Block Web3 Hackathon (Kshitij '26, IIT Kharagpur)** - Ideated and developed Pulse Pay, a Pay-as-you-go blockchain payment system.
+- **Winner, ILead Managedia '2026** - 1st place in Quiz Carnage (CS + AI Tech Quiz) and 1st place in Code Blackout (Competitive Coding).
+- **Runner-up, Equilibrix (Srijan '25, Jadavpur University)** - Built a self-balancing PID robot.
+- **Control Craft (Srijan '26, Jadavpur University)** - Built a bot capable of traversing terrain while carrying objects.
+- **1st Runner-up, Techno International New Town Project Showcase** - Presented the Pulse Pay system.
+- **Runner-up, Tech Twister Quiz** - Techno International New Town.
+- **SIH 2025 selection** - Selected among 130+ teams for the internal Smart India Hackathon.
+
+## Education
+- **Techno International New Town (2024 – 2028)** - B.Tech in Computer Science and Engineering (Pursuing, 1st Year YGPA: 8.03).
+
+## Certifications
+- **IBM**: Generative AI: Prompt Engineering Basics, Generative AI: Introduction and Applications, Generative AI for Software Developers.
+- **Google**: Introduction to AI, Maximize Productivity With AI Tools, Discover the Art of Prompting.
+- **NPTEL**: Programming, Data Structures and Algorithms Using Python; The Joy of Computing Using Python.
+- **Duke University**: Java Programming: Solving Problems with Software.
