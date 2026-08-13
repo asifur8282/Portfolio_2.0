@@ -29,6 +29,9 @@
 - **Earthquake Survivor Detection** - YOLO model tuning for post-disaster search-and-rescue.
 - **Iris Flower Prediction** - Decision Tree Classifier using scikit-learn.
 
+## Things I vibecoded for Fun
+- [Master Patterns](https://master-patterns.vercel.app/) - A modern Computer Science (CS) Pattern Learning Platform & Visualizer. Provides interactive step-by-step visual tracing and multi-language code generation (C, C++, Java, Python, JavaScript) for classic and advanced matrix/symbol pattern programs.
+
 ## Professional Experience
 - **Google Student Ambassador** (June 2026 – Present)
   - Promoting the use of Gemini as a tool for content creation and learning.

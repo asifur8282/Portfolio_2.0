@@ -589,6 +589,64 @@ body.dark-mode .form-status-msg.info {
     border-color: rgba(0, 210, 211, 0.3);
 }
 
+/* Vibecoded Section Styling */
+.vibecoded-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.vibecoded-card {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    padding: 24px;
+    align-items: center;
+}
+.vibecoded-img-wrapper {
+    width: 240px;
+    height: 150px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+.vibecoded-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-duration) var(--transition-timing-function);
+}
+.vibecoded-card:hover .vibecoded-img-wrapper img {
+    transform: scale(1.05);
+}
+.vibecoded-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+.vibecoded-content h3 {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+}
+.vibecoded-content p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .vibecoded-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .vibecoded-img-wrapper {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 10;
+    }
+}
+
 @media (max-width: 1100px) {
     .container {
         display: grid;
@@ -599,11 +657,12 @@ body.dark-mode .form-status-msg.info {
     #education { order: 3; }
     #experience { order: 4; }
     #projects { order: 5; }
-    #skills { order: 6; }
-    #achievements { order: 7; }
-    #certifications { order: 8; }
-    #contact { order: 9; }
-    footer { order: 10; }
+    #vibecoded { order: 6; }
+    #skills { order: 7; }
+    #achievements { order: 8; }
+    #certifications { order: 9; }
+    #contact { order: 10; }
+    footer { order: 11; }
     .nav-skills-link, .nav-certifications-link { display: block; }
     .nav-about { order: 1; }
     .nav-contact { order: 2; }
@@ -622,7 +681,7 @@ body.dark-mode .form-status-msg.info {
     .main-header { grid-column: 1 / -1; }
     #skills { grid-column: 1; grid-row: 2 / span 10; }
     #certifications { grid-column: 3; grid-row: 2 / span 10; }
-    #about, #experience, #education, #projects, #achievements, #contact, footer {
+    #about, #experience, #education, #projects, #vibecoded, #achievements, #contact, footer {
         grid-column: 2;
     }
     .nav-skills-link, .nav-certifications-link { display: none; }
