@@ -610,6 +610,10 @@ body.dark-mode .form-status-msg.info {
     overflow: hidden;
     border: 1px solid var(--glass-border);
 }
+.vibecoded-img-wrapper.landscape {
+    width: 280px;
+    height: 180px;
+}
 .vibecoded-img-wrapper img {
     width: 100%;
     height: 100%;
@@ -648,6 +652,11 @@ body.dark-mode .form-status-msg.info {
     .vibecoded-img-wrapper {
         width: 180px;
         height: 336px;
+    }
+    .vibecoded-img-wrapper.landscape {
+        width: 100%;
+        max-width: 280px;
+        height: 180px;
     }
 }
 
