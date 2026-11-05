@@ -24,13 +24,13 @@
   - [Classifier Model](https://github.com/asifur8282/Classroom-Compass-Classifier)
 - [Vision-Guided GazeBot](https://github.com/asifur8282/ML-Vision-Guided-GazeBot) - Camera-based control interface where an ESP32-driven robotic vehicle aligns its direction with the user's head position tracked via MediaPipe and OpenCV.
 - [Heart Disease Prediction Model](https://github.com/asifur8282/Heart-Disease-Prediction) - SVM model predicting heart disease risk based on patient attributes with 90% accuracy, trained on a Kaggle dataset.
-- [CSV to WhatsApp Messages](https://github.com/asifur8282/CSV-to-Whatsapp-Messages) - Automated workflow using Python (Selenium) to read CSV files and send formatted WhatsApp messages for event management.
 - **PID-Based Self-Balancing Bot** - A two-wheeled robot using PID control loops and sensor feedback for dynamic stability.
 - **Earthquake Survivor Detection** - YOLO model tuning for post-disaster search-and-rescue.
 
 ## Things I vibecoded for Fun
-- [CrossDrop](https://github.com/asifur8282/CrossDrop) ([Releases](https://github.com/asifur8282/CrossDrop/releases)) - Ultra-lightweight, zero-cloud peer-to-peer (P2P) sync utility between Windows 11 and Android over the local Wi-Fi subnet. Built with a custom 18-byte binary framing protocol over a direct TCP pipe, zero-disk intermediate footprint, a 10-minute volatile RAM buffer, active-lock pipeline with SHA-256 verification, and direct-from-camera frame streaming.
+- [CrossDrop](https://github.com/asifur8282/CrossDrop) ([Releases](https://github.com/asifur8282/CrossDrop/releases)) - Ultra-lightweight, zero-cloud peer-to-peer (P2P) sync utility between Windows 11 and Android over local Wi-Fi. Streams files, clipboard snippets, and camera frames directly via a custom TCP protocol with zero disk staging.
 - [Master Patterns](https://master-patterns.vercel.app/) - A modern Computer Science (CS) Pattern Learning Platform & Visualizer. Provides interactive step-by-step visual tracing and multi-language code generation (C, C++, Java, Python, JavaScript) for classic and advanced matrix/symbol pattern programs.
+- [CSV to WhatsApp Messages](https://github.com/asifur8282/CSV-to-Whatsapp-Messages) - Automated workflow using Python (Selenium) to read CSV files and send formatted WhatsApp messages for event management.
 
 ## Professional Experience
 - **Google Student Ambassador** (June 2026 – Present)
