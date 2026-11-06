@@ -96,4 +96,74 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Image Lightbox / Modal for Zooming Images
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = lightbox ? lightbox.querySelector('.lightbox-close') : null;
+    const lightboxBackdrop = lightbox ? lightbox.querySelector('.lightbox-backdrop') : null;
+
+    function openLightbox(src, alt) {
+        if (!lightbox || !lightboxImg) return;
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || 'Preview';
+        if (lightboxCaption) {
+            lightboxCaption.textContent = alt || '';
+        }
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        setTimeout(() => {
+            if (!lightbox.classList.contains('active') && lightboxImg) {
+                lightboxImg.src = '';
+            }
+        }, 300);
+    }
+
+    if (lightbox) {
+        if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+        if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    }
+
+    // Attach zoom badge and click handler to zoomable images
+    const zoomableWrappers = document.querySelectorAll('.vibecoded-img-wrapper, .achievement-img-wrapper, .photo-frame');
+    zoomableWrappers.forEach(wrapper => {
+        const img = wrapper.querySelector('img');
+        if (!img) return; // Skip wrappers with only SVG placeholders
+
+        wrapper.classList.add('zoomable-wrapper');
+
+        // Create hover badge
+        const badge = document.createElement('div');
+        badge.className = 'zoom-badge';
+        badge.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            <span>Click to enlarge</span>
+        `;
+        wrapper.appendChild(badge);
+
+        wrapper.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            openLightbox(img.currentSrc || img.src, img.alt);
+        });
+    });
 });
