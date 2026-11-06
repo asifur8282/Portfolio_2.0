@@ -614,12 +614,20 @@ body.dark-mode .form-status-msg.info {
     width: 280px;
     height: 180px;
 }
+.vibecoded-img-wrapper.square {
+    width: 220px;
+    height: 210px;
+    aspect-ratio: 989 / 940;
+}
 .vibecoded-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
     transition: transform var(--transition-duration) var(--transition-timing-function);
+}
+.vibecoded-img-wrapper.square img {
+    object-position: center;
 }
 .vibecoded-card:hover .vibecoded-img-wrapper img {
     transform: scale(1.05);
@@ -657,6 +665,12 @@ body.dark-mode .form-status-msg.info {
         width: 100%;
         max-width: 280px;
         height: 180px;
+    }
+    .vibecoded-img-wrapper.square {
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+        aspect-ratio: 989 / 940;
     }
 }
 
