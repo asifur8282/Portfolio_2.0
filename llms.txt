@@ -28,7 +28,7 @@
 - **Earthquake Survivor Detection** - YOLO model tuning for post-disaster search-and-rescue.
 
 ## Things I vibecoded for Fun
-- [BoltP2P](https://github.com/asifur8282/BoltP2P) ([Releases](https://github.com/asifur8282/BoltP2P/releases)) - Ultra-lightweight, zero-cloud peer-to-peer (P2P) sync utility between Windows 11 and Android over local Wi-Fi. Streams files, clipboard snippets, and camera frames directly via a custom TCP protocol with zero disk staging.
+- [JiffBoltP2P](https://github.com/asifur8282/JiffBoltP2P) ([Releases](https://github.com/asifur8282/JiffBoltP2P/releases)) - Ultra-lightweight, zero-cloud peer-to-peer (P2P) sync utility between Windows 11 and Android over local Wi-Fi. Streams files, clipboard snippets, and camera frames directly via a custom TCP protocol with zero disk staging.
 - [Master Patterns](https://master-patterns.vercel.app/) - A modern Computer Science (CS) Pattern Learning Platform & Visualizer. Provides interactive step-by-step visual tracing and multi-language code generation (C, C++, Java, Python, JavaScript) for classic and advanced matrix/symbol pattern programs.
 - [CSV to WhatsApp Messages](https://github.com/asifur8282/CSV-to-Whatsapp-Messages) - Automated workflow using Python (Selenium) to read CSV files and send formatted WhatsApp messages for event management.
 
