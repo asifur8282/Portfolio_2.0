@@ -189,6 +189,18 @@ document.addEventListener("DOMContentLoaded", () => {
             [0, 4, 8], [2, 4, 6]
         ];
 
+        const CELL_NAMES = [
+            'Square 1 (Top Left)',
+            'Square 2 (Top Center)',
+            'Square 3 (Top Right)',
+            'Square 4 (Middle Left)',
+            'Square 5 (Center)',
+            'Square 6 (Middle Right)',
+            'Square 7 (Bottom Left)',
+            'Square 8 (Bottom Center)',
+            'Square 9 (Bottom Right)'
+        ];
+
         let boardState = ['', '', '', '', '', '', '', '', ''];
         let currentPlayer = 'X';
         let isGameActive = true;
@@ -247,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cell.textContent = player === 'X' ? '✕' : '◯';
             cell.classList.add(player === 'X' ? 'cell-x' : 'cell-o');
             cell.disabled = true;
-            cell.setAttribute('aria-label', `Square ${index + 1}: ${player}`);
+            cell.setAttribute('aria-label', `${CELL_NAMES[index]}: ${player}`);
             if (navigator.vibrate) {
                 try { navigator.vibrate(15); } catch (e) {}
             }
@@ -408,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 cell.textContent = '';
                 cell.className = 'game-cell';
                 cell.disabled = false;
-                cell.setAttribute('aria-label', `Square ${idx + 1}`);
+                cell.setAttribute('aria-label', CELL_NAMES[idx]);
             });
 
             if (gameMode === 'pvp') {
