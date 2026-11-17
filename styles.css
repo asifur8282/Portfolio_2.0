@@ -589,6 +589,268 @@ body.dark-mode .form-status-msg.info {
     border-color: rgba(0, 210, 211, 0.3);
 }
 
+/* ==========================================================================
+   Mini Game: Beat the Mini-AI (Tic-Tac-Toe)
+   ========================================================================== */
+.mini-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.mini-game-header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.mini-game-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mini-game-title-wrap h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0;
+}
+
+.game-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--inner-glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--accent-color);
+}
+
+.game-difficulty-pills {
+    display: inline-flex;
+    background: var(--inner-glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.game-diff-btn {
+    background: transparent;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+}
+
+.game-diff-btn:hover {
+    color: var(--text-color);
+}
+
+.game-diff-btn.active {
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.game-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    align-self: flex-start;
+}
+
+.game-scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 12px;
+}
+
+.score-pill {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 10px;
+    background: var(--inner-glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.score-pill .score-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.score-pill .score-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.score-pill.score-x .score-number {
+    color: #2563eb;
+}
+body.dark-mode .score-pill.score-x .score-number {
+    color: #38bdf8;
+}
+
+.score-pill.score-o .score-number {
+    color: #db2777;
+}
+body.dark-mode .score-pill.score-o .score-number {
+    color: #f472b6;
+}
+
+.game-status-bar {
+    font-size: 0.95rem;
+    font-weight: 600;
+    min-height: 24px;
+    margin-bottom: 14px;
+    color: var(--text-color);
+}
+
+.game-board-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 240px;
+    height: 240px;
+}
+
+.game-board.ai-thinking {
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.game-cell {
+    width: 100%;
+    height: 100%;
+    background: var(--inner-glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    line-height: 1;
+    color: var(--text-color);
+}
+
+.game-cell:hover:not(:disabled) {
+    background: var(--inner-glass-hover);
+    transform: scale(1.05);
+    border-color: var(--accent-color);
+}
+
+.game-cell:disabled {
+    cursor: default;
+}
+
+.game-cell.cell-x {
+    color: #2563eb;
+    text-shadow: 0 0 12px rgba(37, 99, 235, 0.35);
+    animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+body.dark-mode .game-cell.cell-x {
+    color: #38bdf8;
+    text-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
+}
+
+.game-cell.cell-o {
+    color: #db2777;
+    text-shadow: 0 0 12px rgba(219, 39, 119, 0.35);
+    animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+body.dark-mode .game-cell.cell-o {
+    color: #f472b6;
+    text-shadow: 0 0 16px rgba(244, 114, 182, 0.5);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.game-cell.winning-cell {
+    border-color: #22c55e !important;
+    background: rgba(34, 197, 94, 0.15) !important;
+    box-shadow: 0 0 16px rgba(34, 197, 94, 0.35);
+    animation: winPulse 1s ease infinite alternate;
+}
+
+@keyframes winPulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.04); }
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.game-restart-chip {
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    background: var(--inner-glass-bg);
+}
+
+.game-restart-chip:hover {
+    background: var(--accent-color);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+    .mini-game-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .game-difficulty-pills {
+        align-self: center;
+    }
+    .game-board {
+        width: 220px;
+        height: 220px;
+        gap: 8px;
+    }
+    .game-cell {
+        font-size: 1.9rem;
+        border-radius: 12px;
+    }
+}
+
 /* Vibecoded Section Styling */
 .vibecoded-grid {
     display: flex;
@@ -701,7 +963,8 @@ body.dark-mode .form-status-msg.info {
     #achievements { order: 8; }
     #certifications { order: 9; }
     #contact { order: 10; }
-    footer { order: 11; }
+    #mini-game { order: 11; }
+    footer { order: 12; }
     .nav-skills-link, .nav-certifications-link { display: block; }
     .nav-about { order: 1; }
     .nav-contact { order: 2; }
@@ -720,7 +983,7 @@ body.dark-mode .form-status-msg.info {
     .main-header { grid-column: 1 / -1; }
     #skills { grid-column: 1; grid-row: 2 / span 10; }
     #certifications { grid-column: 3; grid-row: 2 / span 10; }
-    #about, #experience, #education, #projects, #vibecoded, #achievements, #contact, footer {
+    #about, #experience, #education, #projects, #vibecoded, #achievements, #contact, #mini-game, footer {
         grid-column: 2;
     }
     .nav-skills-link, .nav-certifications-link { display: none; }

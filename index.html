@@ -362,6 +362,58 @@
                      </form>
                  </div>
              </section>
+             <section id="mini-game" class="mini-game glass-panel slide-in delay-5">
+                 <div class="mini-game-header">
+                     <div class="mini-game-title-wrap">
+                         <span class="game-badge">Mini Game</span>
+                         <h2>Beat the Mini-AI</h2>
+                     </div>
+                     <div class="game-difficulty-pills" role="radiogroup" aria-label="Game Mode">
+                         <button type="button" class="game-diff-btn active" data-mode="smart" aria-checked="true" role="radio">Smart AI</button>
+                         <button type="button" class="game-diff-btn" data-mode="casual" aria-checked="false" role="radio">Casual</button>
+                         <button type="button" class="game-diff-btn" data-mode="pvp" aria-checked="false" role="radio">2-Player</button>
+                     </div>
+                 </div>
+                 <p class="game-subtitle">Take a quick break — can you outsmart the AI in Tic-Tac-Toe?</p>
+
+                 <div class="game-scoreboard">
+                     <div class="score-pill score-x">
+                         <span class="score-name" id="scoreNameX">You (X)</span>
+                         <span class="score-number" id="scoreValX">0</span>
+                     </div>
+                     <div class="score-pill score-tie">
+                         <span class="score-name">Ties</span>
+                         <span class="score-number" id="scoreValTie">0</span>
+                     </div>
+                     <div class="score-pill score-o">
+                         <span class="score-name" id="scoreNameO">AI (O)</span>
+                         <span class="score-number" id="scoreValO">0</span>
+                     </div>
+                 </div>
+
+                 <div class="game-status-bar" id="gameStatusBar" aria-live="polite">Your turn (X)</div>
+
+                 <div class="game-board-container">
+                     <div class="game-board" id="gameBoard" role="grid" aria-label="Tic Tac Toe Board">
+                         <button type="button" class="game-cell" data-cell="0" aria-label="Square 1"></button>
+                         <button type="button" class="game-cell" data-cell="1" aria-label="Square 2"></button>
+                         <button type="button" class="game-cell" data-cell="2" aria-label="Square 3"></button>
+                         <button type="button" class="game-cell" data-cell="3" aria-label="Square 4"></button>
+                         <button type="button" class="game-cell" data-cell="4" aria-label="Square 5"></button>
+                         <button type="button" class="game-cell" data-cell="5" aria-label="Square 6"></button>
+                         <button type="button" class="game-cell" data-cell="6" aria-label="Square 7"></button>
+                         <button type="button" class="game-cell" data-cell="7" aria-label="Square 8"></button>
+                         <button type="button" class="game-cell" data-cell="8" aria-label="Square 9"></button>
+                     </div>
+                 </div>
+
+                 <div class="game-controls">
+                     <button type="button" id="gameRestartBtn" class="glass-chip game-restart-chip" aria-label="Restart round">
+                         <svg class="svg-icon" viewBox="0 0 512 512" style="width: 0.9em; height: 0.9em; margin-right: 4px;"><path d="M480 256c0 123.7-100.3 224-224 224-43.1 0-83.3-12.2-117.5-33.3l37.2-37.2c24.6 14.8 53.4 23.3 84.3 23.3 90.6 0 164-73.4 164-164S350.6 104 260 104c-47.5 0-90.4 20.3-120.6 52.8L184 201.7H32V49.7l47.5 47.5C124.6 54.7 188.7 32 260 32c123.7 0 224 100.3 224 224z"/></svg>
+                         Restart Round
+                     </button>
+                 </div>
+             </section>
              <footer class="glass-panel slide-in delay-6" style="margin-top: -10px; margin-bottom: 24px;">
                  <p>&copy; 2026 Asifur Rahaman. All rights reserved.</p>
              </footer>

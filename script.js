@@ -166,4 +166,283 @@ document.addEventListener("DOMContentLoaded", () => {
             openLightbox(img.currentSrc || img.src, img.alt);
         });
     });
+
+    // =========================================================================
+    // Mini Game: Beat the Mini-AI (Tic-Tac-Toe)
+    // =========================================================================
+    const gameSection = document.getElementById('mini-game');
+    if (gameSection) {
+        const boardEl = document.getElementById('gameBoard');
+        const cells = Array.from(boardEl.querySelectorAll('.game-cell'));
+        const statusEl = document.getElementById('gameStatusBar');
+        const restartBtn = document.getElementById('gameRestartBtn');
+        const diffBtns = Array.from(gameSection.querySelectorAll('.game-diff-btn'));
+        const scoreValX = document.getElementById('scoreValX');
+        const scoreValO = document.getElementById('scoreValO');
+        const scoreValTie = document.getElementById('scoreValTie');
+        const scoreNameX = document.getElementById('scoreNameX');
+        const scoreNameO = document.getElementById('scoreNameO');
+
+        const WIN_COMBOS = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        let boardState = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let isGameActive = true;
+        let isAiThinking = false;
+        let gameMode = 'smart'; // 'smart' | 'casual' | 'pvp'
+        let scores = { X: 0, O: 0, tie: 0 };
+
+        function checkWinner(board) {
+            for (let i = 0; i < WIN_COMBOS.length; i++) {
+                const [a, b, c] = WIN_COMBOS[i];
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return { winner: board[a], combo: [a, b, c] };
+                }
+            }
+            if (board.every(cell => cell !== '')) {
+                return { winner: 'tie', combo: null };
+            }
+            return null;
+        }
+
+        function updateScoreboard() {
+            if (scoreValX) scoreValX.textContent = scores.X;
+            if (scoreValO) scoreValO.textContent = scores.O;
+            if (scoreValTie) scoreValTie.textContent = scores.tie;
+        }
+
+        function highlightWinner(combo) {
+            if (!combo) return;
+            combo.forEach(idx => {
+                if (cells[idx]) cells[idx].classList.add('winning-cell');
+            });
+        }
+
+        function handleEndGame(result) {
+            isGameActive = false;
+            boardEl.classList.remove('ai-thinking');
+
+            if (result.winner === 'tie') {
+                scores.tie++;
+                statusEl.textContent = "🤝 It's a draw!";
+            } else if (result.winner === 'X') {
+                scores.X++;
+                highlightWinner(result.combo);
+                statusEl.textContent = (gameMode === 'pvp') ? '🎉 Player 1 (X) Wins!' : '🎉 You Won!';
+            } else if (result.winner === 'O') {
+                scores.O++;
+                highlightWinner(result.combo);
+                statusEl.textContent = (gameMode === 'pvp') ? '🎉 Player 2 (O) Wins!' : '🤖 AI Wins this round!';
+            }
+            updateScoreboard();
+        }
+
+        function makeMove(index, player) {
+            boardState[index] = player;
+            const cell = cells[index];
+            cell.textContent = player === 'X' ? '✕' : '◯';
+            cell.classList.add(player === 'X' ? 'cell-x' : 'cell-o');
+            cell.disabled = true;
+            cell.setAttribute('aria-label', `Square ${index + 1}: ${player}`);
+            if (navigator.vibrate) {
+                try { navigator.vibrate(15); } catch (e) {}
+            }
+        }
+
+        function minimax(board, isMaximizing, depth) {
+            const res = checkWinner(board);
+            if (res) {
+                if (res.winner === 'O') return 10 - depth;
+                if (res.winner === 'X') return depth - 10;
+                if (res.winner === 'tie') return 0;
+            }
+            if (depth >= 6) return 0;
+
+            const available = [];
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === '') available.push(i);
+            }
+
+            if (isMaximizing) {
+                let maxEval = -Infinity;
+                for (let i = 0; i < available.length; i++) {
+                    const idx = available[i];
+                    board[idx] = 'O';
+                    const evaluation = minimax(board, false, depth + 1);
+                    board[idx] = '';
+                    if (evaluation > maxEval) maxEval = evaluation;
+                }
+                return maxEval;
+            } else {
+                let minEval = Infinity;
+                for (let i = 0; i < available.length; i++) {
+                    const idx = available[i];
+                    board[idx] = 'X';
+                    const evaluation = minimax(board, true, depth + 1);
+                    board[idx] = '';
+                    if (evaluation < minEval) minEval = evaluation;
+                }
+                return minEval;
+            }
+        }
+
+        function getBestMove(board) {
+            const available = [];
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === '') available.push(i);
+            }
+            if (available.length === 8 && board[4] === '') {
+                return 4;
+            }
+            let bestScore = -Infinity;
+            let bestMove = available[0];
+            for (let i = 0; i < available.length; i++) {
+                const idx = available[i];
+                board[idx] = 'O';
+                const score = minimax(board, false, 0);
+                board[idx] = '';
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = idx;
+                }
+            }
+            return bestMove;
+        }
+
+        function getCasualMove(board) {
+            const available = [];
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === '') available.push(i);
+            }
+
+            // 1. Can AI win in one move?
+            for (let i = 0; i < available.length; i++) {
+                const idx = available[i];
+                board[idx] = 'O';
+                const win = checkWinner(board);
+                board[idx] = '';
+                if (win && win.winner === 'O') return idx;
+            }
+
+            // 2. Can player win? 60% chance to block
+            if (Math.random() < 0.6) {
+                for (let i = 0; i < available.length; i++) {
+                    const idx = available[i];
+                    board[idx] = 'X';
+                    const win = checkWinner(board);
+                    board[idx] = '';
+                    if (win && win.winner === 'X') return idx;
+                }
+            }
+
+            // 3. Random move
+            return available[Math.floor(Math.random() * available.length)];
+        }
+
+        function aiTurn() {
+            if (!isGameActive) return;
+            isAiThinking = true;
+            boardEl.classList.add('ai-thinking');
+            statusEl.textContent = '🤖 AI is thinking...';
+
+            setTimeout(() => {
+                if (!isGameActive) {
+                    isAiThinking = false;
+                    boardEl.classList.remove('ai-thinking');
+                    return;
+                }
+                const moveIdx = (gameMode === 'smart') ? getBestMove(boardState) : getCasualMove(boardState);
+                if (moveIdx !== undefined && moveIdx !== null) {
+                    makeMove(moveIdx, 'O');
+                }
+                isAiThinking = false;
+                boardEl.classList.remove('ai-thinking');
+
+                const result = checkWinner(boardState);
+                if (result) {
+                    handleEndGame(result);
+                } else {
+                    currentPlayer = 'X';
+                    statusEl.textContent = 'Your turn (X)';
+                }
+            }, 260);
+        }
+
+        function onCellClick(e) {
+            const cell = e.currentTarget;
+            const index = parseInt(cell.getAttribute('data-cell'), 10);
+
+            if (!isGameActive || isAiThinking || boardState[index] !== '') {
+                return;
+            }
+
+            makeMove(index, currentPlayer);
+
+            const result = checkWinner(boardState);
+            if (result) {
+                handleEndGame(result);
+                return;
+            }
+
+            if (gameMode === 'pvp') {
+                currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
+                statusEl.textContent = (currentPlayer === 'X') ? "Player 1 (X)'s turn" : "Player 2 (O)'s turn";
+            } else {
+                currentPlayer = 'O';
+                aiTurn();
+            }
+        }
+
+        function resetRound() {
+            boardState = ['', '', '', '', '', '', '', '', ''];
+            currentPlayer = 'X';
+            isGameActive = true;
+            isAiThinking = false;
+            boardEl.classList.remove('ai-thinking');
+
+            cells.forEach((cell, idx) => {
+                cell.textContent = '';
+                cell.className = 'game-cell';
+                cell.disabled = false;
+                cell.setAttribute('aria-label', `Square ${idx + 1}`);
+            });
+
+            if (gameMode === 'pvp') {
+                statusEl.textContent = "Player 1 (X)'s turn";
+            } else {
+                statusEl.textContent = 'Your turn (X)';
+            }
+        }
+
+        cells.forEach(cell => cell.addEventListener('click', onCellClick));
+        if (restartBtn) restartBtn.addEventListener('click', resetRound);
+
+        diffBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mode = btn.dataset.mode;
+                if (mode === gameMode) return;
+
+                diffBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-checked', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-checked', 'true');
+                gameMode = mode;
+
+                if (gameMode === 'pvp') {
+                    if (scoreNameX) scoreNameX.textContent = 'Player 1 (X)';
+                    if (scoreNameO) scoreNameO.textContent = 'Player 2 (O)';
+                } else {
+                    if (scoreNameX) scoreNameX.textContent = 'You (X)';
+                    if (scoreNameO) scoreNameO.textContent = 'AI (O)';
+                }
+                resetRound();
+            });
+        });
+    }
 });
