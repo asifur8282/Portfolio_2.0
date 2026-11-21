@@ -1322,7 +1322,7 @@ body:not(.dark-mode) .lightbox-backdrop {
 }
 
 .gazebot-bubble {
-    pointer-events: auto;
+    pointer-events: none;
     background: var(--inner-glass-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -1341,6 +1341,7 @@ body:not(.dark-mode) .lightbox-backdrop {
 }
 
 .gazebot-bubble.active {
+    pointer-events: auto;
     opacity: 1;
     transform: translateY(0) scale(1);
     visibility: visible;
@@ -1652,12 +1653,14 @@ body.cmd-open {
     justify-content: center;
     padding-top: 14vh;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.2s;
 }
 
 .cmd-palette-modal.active {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
 }
 

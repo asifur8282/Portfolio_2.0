@@ -111,15 +111,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (lightboxCaption) {
             lightboxCaption.textContent = alt || '';
         }
+        lightbox.removeAttribute('inert');
         lightbox.classList.add('active');
-        lightbox.setAttribute('aria-hidden', 'false');
         document.body.classList.add('lightbox-open');
     }
 
     function closeLightbox() {
         if (!lightbox) return;
+        lightbox.setAttribute('inert', '');
         lightbox.classList.remove('active');
-        lightbox.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('lightbox-open');
         setTimeout(() => {
             if (!lightbox.classList.contains('active') && lightboxImg) {
@@ -637,6 +637,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Easter Egg: Matrix Rain
         function triggerMatrixRain() {
             closePalette();
+            const existing = document.getElementById('matrixRainWrap');
+            if (existing) existing.remove();
 
             // Container overlay
             const matrixWrap = document.createElement('div');
@@ -702,7 +704,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             function onMatrixKey(e) {
-                if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+                if (e.key === 'Escape') {
                     e.preventDefault();
                     closeMatrix();
                 }
@@ -713,12 +715,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.stopPropagation();
                 closeMatrix();
             });
-            window.addEventListener('keydown', onMatrixKey);
 
-            // Auto-close after 10 seconds if not dismissed
+            // Delay attaching ESC listener to avoid catching the Enter key from command palette
+            setTimeout(() => {
+                if (!isClosed) {
+                    window.addEventListener('keydown', onMatrixKey);
+                }
+            }, 200);
+
+            // Auto-close after 12 seconds if not dismissed
             setTimeout(() => {
                 closeMatrix();
-            }, 10000);
+            }, 12000);
         }
 
         // Easter Egg: Sudo Hire Confetti
@@ -852,7 +860,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { id: 'linkedin', title: 'LinkedIn Profile', desc: 'linkedin.com/in/asifur06rahaman', category: 'Links', icon: '🔗', tag: 'Link', action: () => window.open('https://linkedin.com/in/asifur06rahaman', '_blank') },
 
             // Actions
-            { id: 'theme', title: 'Toggle Theme', desc: 'Switch between Dark Mode and Light Mode', category: 'Actions', icon: '🌓', tag: 'Action', action: () => { closePalette(); document.getElementById('darkModeToggle')?.click(); } },
+            { id: 'theme', title: 'Toggle Theme', desc: 'Switch between Dark Mode and Light Mode', category: 'Actions', icon: '🌓', tag: 'Action', action: () => document.getElementById('darkModeToggle')?.click() },
 
             // Easter Eggs
             { id: 'matrix', title: 'matrix', desc: 'Enter the Matrix (Green falling digital rain)', category: 'Easter Eggs', icon: '🟢', tag: 'Fun', action: triggerMatrixRain },
@@ -860,6 +868,18 @@ document.addEventListener("DOMContentLoaded", () => {
             { id: 'joke', title: 'joke', desc: 'Tell a random AI / ML developer joke', category: 'Easter Eggs', icon: '🤖', tag: 'Fun', action: triggerDevJoke },
             { id: 'gazebot', title: 'gazebot', desc: 'Make GazeBot do an excited victory spin', category: 'Easter Eggs', icon: '👁️', tag: 'Fun', action: triggerGazeBotSpin }
         ];
+
+        function executeCommand(cmd) {
+            if (!cmd) return;
+            closePalette();
+            setTimeout(() => {
+                try {
+                    cmd.action();
+                } catch (err) {
+                    console.error('Command palette execution error:', err);
+                }
+            }, 60);
+        }
 
         function renderResults(filtered) {
             currentFiltered = filtered;
@@ -882,8 +902,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const item = document.createElement('div');
                 item.className = 'cmd-item' + (idx === selectedIndex ? ' selected' : '');
-                item.setAttribute('role', 'option');
-                item.setAttribute('aria-selected', idx === selectedIndex ? 'true' : 'false');
                 item.innerHTML = `
                     <div class="cmd-item-left">
                         <span class="cmd-item-icon">${cmd.icon}</span>
@@ -895,8 +913,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="cmd-item-tag">${cmd.tag}</span>
                 `;
 
-                item.addEventListener('click', () => {
-                    cmd.action();
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    executeCommand(cmd);
                 });
 
                 item.addEventListener('mouseenter', () => {
@@ -912,7 +931,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const items = cmdResults.querySelectorAll('.cmd-item');
             items.forEach((it, idx) => {
                 it.classList.toggle('selected', idx === selectedIndex);
-                it.setAttribute('aria-selected', idx === selectedIndex ? 'true' : 'false');
             });
             const sel = items[selectedIndex];
             if (sel) {
@@ -927,13 +945,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 c.id.toLowerCase().includes(q) ||
                 c.title.toLowerCase().includes(q) ||
                 c.desc.toLowerCase().includes(q) ||
-                c.category.toLowerCase().includes(q)
+                c.category.toLowerCase().includes(q) ||
+                (c.tag && c.tag.toLowerCase().includes(q))
             );
         }
 
         function openPalette() {
+            cmdModal.removeAttribute('inert');
             cmdModal.classList.add('active');
-            cmdModal.setAttribute('aria-hidden', 'false');
             document.body.classList.add('cmd-open');
             cmdInput.value = '';
             selectedIndex = 0;
@@ -942,9 +961,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function closePalette() {
+            cmdModal.setAttribute('inert', '');
             cmdModal.classList.remove('active');
-            cmdModal.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('cmd-open');
+            cmdInput.blur();
         }
 
         cmdInput.addEventListener('input', (e) => {
@@ -967,8 +987,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             } else if (e.key === 'Enter') {
                 e.preventDefault();
-                if (currentFiltered[selectedIndex]) {
-                    currentFiltered[selectedIndex].action();
+                e.stopPropagation();
+                if (currentFiltered.length > 0) {
+                    const targetIdx = (selectedIndex >= 0 && selectedIndex < currentFiltered.length) ? selectedIndex : 0;
+                    if (currentFiltered[targetIdx]) {
+                        executeCommand(currentFiltered[targetIdx]);
+                    }
                 }
             } else if (e.key === 'Escape') {
                 closePalette();
