@@ -1126,7 +1126,8 @@ body.lightbox-open {
 body.lightbox-open .container,
 body.lightbox-open .navbar,
 body.lightbox-open footer,
-body.lightbox-open .blob {
+body.lightbox-open .blob,
+body.lightbox-open .gazebot-widget {
     filter: blur(8px);
     pointer-events: none;
 }
@@ -1134,7 +1135,8 @@ body.lightbox-open .blob {
 .container,
 .navbar,
 footer,
-.blob {
+.blob,
+.gazebot-widget {
     transition: filter 0.3s ease;
 }
 
@@ -1286,5 +1288,282 @@ body:not(.dark-mode) .lightbox-backdrop {
     .lightbox-image {
         max-width: 92vw;
         max-height: 72vh;
+    }
+}
+
+/* ==========================================================================
+   GazeBot: Interactive Mascot (Cursor Tracker)
+   ========================================================================== */
+.gazebot-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 990;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    pointer-events: none;
+    user-select: none;
+}
+
+.gazebot-bubble {
+    pointer-events: auto;
+    background: var(--inner-glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 25px var(--glass-shadow);
+    border-radius: 16px;
+    padding: 10px 14px;
+    max-width: 250px;
+    position: relative;
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+    transform-origin: bottom right;
+    transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    visibility: hidden;
+}
+
+.gazebot-bubble.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+}
+
+.gazebot-text {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--text-color);
+    font-weight: 500;
+    padding-right: 14px;
+}
+
+.gazebot-bubble-close {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.gazebot-bubble-close:hover {
+    color: var(--accent-color);
+    transform: scale(1.15);
+}
+
+.gazebot-bubble-arrow {
+    position: absolute;
+    bottom: -6px;
+    right: 24px;
+    width: 10px;
+    height: 10px;
+    background: var(--inner-glass-bg);
+    border-right: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    transform: rotate(45deg);
+}
+
+.gazebot-head {
+    pointer-events: auto;
+    position: relative;
+    width: 60px;
+    height: 52px;
+    background: linear-gradient(135deg, var(--glass-bg), var(--inner-glass-bg));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid var(--accent-color);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px var(--glass-shadow), 0 0 15px rgba(64, 207, 255, 0.25);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    outline: none;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease, border-color 0.25s ease;
+    animation: botFloat 4s ease-in-out infinite;
+}
+
+.gazebot-head:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 12px 28px var(--glass-shadow), 0 0 22px rgba(64, 207, 255, 0.45);
+}
+
+.gazebot-head:focus-visible {
+    box-shadow: 0 0 0 3px var(--accent-color);
+}
+
+.gazebot-antenna {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gazebot-led {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 8px var(--accent-color);
+    animation: ledPulse 2s infinite ease-in-out;
+}
+
+.gazebot-stem {
+    width: 2px;
+    height: 6px;
+    background: var(--accent-color);
+    opacity: 0.8;
+}
+
+.gazebot-face {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gazebot-visor {
+    width: 44px;
+    height: 28px;
+    background: rgba(10, 14, 26, 0.9);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gazebot-eye {
+    width: 11px;
+    height: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.1s ease;
+}
+
+.gazebot-pupil {
+    width: 8px;
+    height: 11px;
+    border-radius: 4px;
+    background: #40cfff;
+    box-shadow: 0 0 8px #40cfff, inset 0 0 2px #fff;
+    transition: transform 0.04s linear;
+}
+
+body.dark-mode .gazebot-pupil {
+    background: #40cfff;
+    box-shadow: 0 0 10px #40cfff;
+}
+
+/* Eye Blinking */
+.gazebot-eye.blinking {
+    transform: scaleY(0.1);
+}
+
+/* Happy Eyes when Clicked */
+.gazebot-eye.happy .gazebot-pupil {
+    height: 5px;
+    border-radius: 50% 50% 0 0;
+    border-top: 3px solid #40cfff;
+    background: transparent;
+    box-shadow: 0 -2px 6px #40cfff;
+}
+
+/* Wiggle animation when clicked */
+.gazebot-head.wiggling {
+    animation: botWiggle 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.gazebot-hint {
+    position: absolute;
+    bottom: -18px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent-color);
+    opacity: 0;
+    transform: translateY(-2px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.gazebot-head:hover .gazebot-hint {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes botFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes botWiggle {
+    0%, 100% { transform: scale(1) rotate(0); }
+    20% { transform: scale(1.1) rotate(-8deg); }
+    40% { transform: scale(1.1) rotate(8deg); }
+    60% { transform: scale(1.05) rotate(-4deg); }
+    80% { transform: scale(1.05) rotate(4deg); }
+}
+
+@keyframes ledPulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 12px var(--accent-color); }
+}
+
+@media (max-width: 600px) {
+    .gazebot-widget {
+        bottom: 16px;
+        right: 16px;
+    }
+    .gazebot-head {
+        width: 52px;
+        height: 46px;
+    }
+    .gazebot-visor {
+        width: 38px;
+        height: 24px;
+        gap: 7px;
+    }
+    .gazebot-eye {
+        width: 9px;
+        height: 13px;
+    }
+    .gazebot-pupil {
+        width: 7px;
+        height: 9px;
+    }
+    .gazebot-bubble {
+        max-width: 210px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gazebot-head {
+        animation: none;
+    }
+    .gazebot-led {
+        animation: none;
     }
 }

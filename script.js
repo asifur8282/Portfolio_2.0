@@ -457,4 +457,147 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+
+    // =========================================================================
+    // GazeBot: Interactive Mascot (Cursor Tracker)
+    // =========================================================================
+    const gazebotWidget = document.getElementById('gazebotWidget');
+    if (gazebotWidget) {
+        const gazeHead = document.getElementById('gazebotHead');
+        const gazeBubble = document.getElementById('gazebotBubble');
+        const gazeText = document.getElementById('gazebotText');
+        const gazeClose = document.getElementById('gazebotBubbleClose');
+        const pupilL = document.getElementById('gazePupilL');
+        const pupilR = document.getElementById('gazePupilR');
+        const eyes = gazebotWidget.querySelectorAll('.gazebot-eye');
+
+        const GAZEBOT_QUOTES = [
+            "Beep boop! 🤖 I'm GazeBot — inspired by Asifur's Vision-Guided GazeBot!",
+            "Eyes on you! Tracking your cursor with OpenCV & MediaPipe vibes. 👀",
+            "Classroom Compass check: 100% focused attention detected! 🎯",
+            "Did you check out VidiHere and JiffBoltP2P in the vibecoded section? ⚡",
+            "Want a quick challenge? Beat the Mini-AI in Tic-Tac-Toe above the footer! 🎮",
+            "Looking for an AI, Computer Vision, or Robotics engineer? Send Asifur a message! 🚀",
+            "Neural weights loaded. Latency: 0.1ms. Ready to build cool things! 🧠"
+        ];
+
+        let quoteIndex = 0;
+        let bubbleTimeout = null;
+        let blinkTimeout = null;
+
+        function showBubble(text, duration = 5000) {
+            if (!gazeBubble || !gazeText) return;
+            gazeText.textContent = text;
+            gazeBubble.classList.add('active');
+
+            if (bubbleTimeout) clearTimeout(bubbleTimeout);
+            if (duration > 0) {
+                bubbleTimeout = setTimeout(() => {
+                    gazeBubble.classList.remove('active');
+                }, duration);
+            }
+        }
+
+        function hideBubble() {
+            if (gazeBubble) gazeBubble.classList.remove('active');
+            if (bubbleTimeout) clearTimeout(bubbleTimeout);
+        }
+
+        if (gazeClose) {
+            gazeClose.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hideBubble();
+            });
+        }
+
+        // Mascot Click Interaction
+        if (gazeHead) {
+            gazeHead.addEventListener('click', () => {
+                // Wiggle head
+                gazeHead.classList.remove('wiggling');
+                void gazeHead.offsetWidth; // trigger reflow
+                gazeHead.classList.add('wiggling');
+
+                // Happy eyes for 1.2s
+                eyes.forEach(eye => eye.classList.add('happy'));
+                setTimeout(() => {
+                    eyes.forEach(eye => eye.classList.remove('happy'));
+                }, 1200);
+
+                // Show next quote
+                quoteIndex = (quoteIndex + 1) % GAZEBOT_QUOTES.length;
+                showBubble(GAZEBOT_QUOTES[quoteIndex], 6000);
+
+                if (navigator.vibrate) {
+                    try { navigator.vibrate(18); } catch (err) {}
+                }
+            });
+        }
+
+        // Eye Gaze Tracking
+        function updateGaze(targetX, targetY) {
+            if (!pupilL || !pupilR) return;
+
+            [pupilL, pupilR].forEach(pupil => {
+                const rect = pupil.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+
+                const dx = targetX - eyeCenterX;
+                const dy = targetY - eyeCenterY;
+                const dist = Math.hypot(dx, dy);
+                const angle = Math.atan2(dy, dx);
+
+                // Max travel distance within visor socket (3.5px)
+                const maxRadius = 3.5;
+                const radius = Math.min(maxRadius, dist / 35);
+
+                const moveX = Math.cos(angle) * radius;
+                const moveY = Math.sin(angle) * radius;
+
+                pupil.style.transform = `translate(${moveX.toFixed(1)}px, ${moveY.toFixed(1)}px)`;
+            });
+        }
+
+        // Mouse tracking with requestAnimationFrame throttling
+        let mouseX = 0, mouseY = 0;
+        let isGazeTicking = false;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!isGazeTicking) {
+                window.requestAnimationFrame(() => {
+                    updateGaze(mouseX, mouseY);
+                    isGazeTicking = false;
+                });
+                isGazeTicking = true;
+            }
+        }, { passive: true });
+
+        // Touch tracking on mobile
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches.length > 0) {
+                updateGaze(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        // Random Blinking
+        function scheduleBlink() {
+            eyes.forEach(eye => eye.classList.add('blinking'));
+            setTimeout(() => {
+                eyes.forEach(eye => eye.classList.remove('blinking'));
+            }, 180);
+
+            blinkTimeout = setTimeout(scheduleBlink, 3500 + Math.random() * 4000);
+        }
+        blinkTimeout = setTimeout(scheduleBlink, 3000);
+
+        // Friendly greeting on initial load (after 2 seconds)
+        setTimeout(() => {
+            if (!gazeBubble.classList.contains('active')) {
+                showBubble("Hi! I'm GazeBot 🤖 Move your mouse — I'm watching!", 4500);
+            }
+        }, 2000);
+    }
 });

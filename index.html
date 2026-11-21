@@ -434,6 +434,31 @@
             </ul>
         </aside>
     </main>
+    <!-- GazeBot Interactive AI Mascot -->
+    <aside id="gazebotWidget" class="gazebot-widget" aria-label="GazeBot AI Mascot">
+        <div id="gazebotBubble" class="gazebot-bubble" role="status" aria-live="polite">
+            <button type="button" id="gazebotBubbleClose" class="gazebot-bubble-close" aria-label="Close message">&times;</button>
+            <div id="gazebotText" class="gazebot-text">Hi! I'm GazeBot 🤖 Move your cursor — I'm watching!</div>
+            <div class="gazebot-bubble-arrow"></div>
+        </div>
+        <button type="button" id="gazebotHead" class="gazebot-head" aria-label="GazeBot Mascot - Click to interact" title="GazeBot: Click me!">
+            <div class="gazebot-antenna">
+                <span class="gazebot-led"></span>
+                <span class="gazebot-stem"></span>
+            </div>
+            <div class="gazebot-face">
+                <div class="gazebot-visor">
+                    <div class="gazebot-eye" id="gazeEyeL">
+                        <div class="gazebot-pupil" id="gazePupilL"></div>
+                    </div>
+                    <div class="gazebot-eye" id="gazeEyeR">
+                        <div class="gazebot-pupil" id="gazePupilR"></div>
+                    </div>
+                </div>
+            </div>
+            <span class="gazebot-hint">Click me!</span>
+        </button>
+    </aside>
     <!-- Image Lightbox Modal for Enlarge/Zoom -->
     <div id="imageLightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
         <div class="lightbox-backdrop"></div>
