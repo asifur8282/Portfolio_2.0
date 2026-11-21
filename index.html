@@ -38,6 +38,12 @@
             <li class="nav-achievements"><a href="#achievements">Achievements</a></li>
             <li class="nav-certifications nav-certifications-link"><a href="#certifications">Certifications</a></li>
             <li class="nav-projects"><a href="#projects">Projects</a></li>
+            <li class="nav-cmd">
+                <button id="cmdPaletteBtn" class="cmd-btn glass-btn" aria-label="Open command palette (Ctrl+K)">
+                    <svg class="svg-icon" viewBox="0 0 512 512" style="width: 12px; height: 12px; margin-right: 4px;"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                    <span id="cmdKeyBadge" class="cmd-key-badge">Ctrl K</span>
+                </button>
+            </li>
             <li class="nav-toggle">
                 <button id="darkModeToggle" class="dark-mode-btn glass-btn" aria-label="Toggle dark mode">
                     <span id="darkModeIcon">☀️</span>
@@ -459,6 +465,25 @@
             <span class="gazebot-hint">Click me!</span>
         </button>
     </aside>
+    <!-- Command Palette Modal (Ctrl + K) -->
+    <div id="cmdPaletteModal" class="cmd-palette-modal" role="dialog" aria-modal="true" aria-label="Command Palette" aria-hidden="true">
+        <div class="cmd-palette-backdrop" id="cmdPaletteBackdrop"></div>
+        <div class="cmd-palette-container glass-panel">
+            <div class="cmd-palette-search">
+                <svg class="svg-icon cmd-search-icon" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                <input type="text" id="cmdPaletteInput" class="cmd-palette-input" placeholder="Type a command or search... (e.g. projects, matrix, hire, joke)" autocomplete="off" spellcheck="false">
+                <button type="button" id="cmdPaletteClose" class="cmd-palette-close-badge" aria-label="Close command palette">ESC</button>
+            </div>
+            <div class="cmd-palette-results" id="cmdPaletteResults" role="listbox" aria-label="Commands">
+                <!-- Injected dynamically -->
+            </div>
+            <div class="cmd-palette-footer">
+                <span><kbd>↑</kbd> <kbd>↓</kbd> navigate</span>
+                <span><kbd>↵</kbd> select</span>
+                <span><kbd>ESC</kbd> close</span>
+            </div>
+        </div>
+    </div>
     <!-- Image Lightbox Modal for Enlarge/Zoom -->
     <div id="imageLightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
         <div class="lightbox-backdrop"></div>

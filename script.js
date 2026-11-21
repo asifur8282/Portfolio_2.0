@@ -528,7 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Show next quote
                 quoteIndex = (quoteIndex + 1) % GAZEBOT_QUOTES.length;
-                showBubble(GAZEBOT_QUOTES[quoteIndex], 6000);
+                showBubble(GAZEBOT_QUOTES[quoteIndex], 9000);
 
                 if (navigator.vibrate) {
                     try { navigator.vibrate(18); } catch (err) {}
@@ -601,5 +601,402 @@ document.addEventListener("DOMContentLoaded", () => {
                 showBubble("Hi! I'm GazeBot 🤖 Move your mouse — I'm watching!", 4500);
             }
         }, 2000);
+    }
+
+    // =========================================================================
+    // Command Palette (Ctrl + K / ⌘K) & Terminal Easter Eggs
+    // =========================================================================
+    const cmdModal = document.getElementById('cmdPaletteModal');
+    const cmdInput = document.getElementById('cmdPaletteInput');
+    const cmdResults = document.getElementById('cmdPaletteResults');
+    const cmdTrigger = document.getElementById('cmdPaletteBtn');
+    const cmdBackdrop = document.getElementById('cmdPaletteBackdrop');
+    const cmdCloseBtn = document.getElementById('cmdPaletteClose');
+    const cmdBadge = document.getElementById('cmdKeyBadge');
+
+    if (cmdModal && cmdInput && cmdResults) {
+        // Detect MacOS for badge label
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        if (cmdBadge) {
+            cmdBadge.textContent = isMac ? '⌘ K' : 'Ctrl K';
+        }
+
+        let selectedIndex = 0;
+        let currentFiltered = [];
+
+        function scrollToSec(selector) {
+            const el = document.querySelector(selector);
+            if (el) {
+                closePalette();
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
+        // Easter Egg: Matrix Rain
+        function triggerMatrixRain() {
+            closePalette();
+
+            // Container overlay
+            const matrixWrap = document.createElement('div');
+            matrixWrap.id = 'matrixRainWrap';
+            matrixWrap.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:99998;background:rgba(5,10,15,0.88);cursor:pointer;transition:opacity 0.4s ease;';
+
+            // Exit button pill
+            const exitBtn = document.createElement('button');
+            exitBtn.type = 'button';
+            exitBtn.className = 'glass-btn';
+            exitBtn.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:99999;font-size:0.85rem;padding:8px 20px;border-radius:30px;color:#00ff73;border:1px solid rgba(0,255,115,0.4);background:rgba(10,25,15,0.8);box-shadow:0 0 20px rgba(0,255,115,0.3);cursor:pointer;font-family:inherit;font-weight:600;outline:none;-webkit-tap-highlight-color:transparent;';
+            exitBtn.textContent = '✕ Exit Matrix (Click anywhere or ESC)';
+
+            const canvas = document.createElement('canvas');
+            canvas.style.cssText = 'width:100%;height:100%;display:block;';
+
+            matrixWrap.appendChild(canvas);
+            matrixWrap.appendChild(exitBtn);
+            document.body.appendChild(matrixWrap);
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンASIFURAI';
+            const fontSize = 14;
+            const columns = Math.floor(canvas.width / fontSize);
+            const drops = Array(columns).fill(1);
+
+            let matrixRaf;
+            let isClosed = false;
+
+            function drawMatrix() {
+                if (isClosed) return;
+                ctx.fillStyle = 'rgba(5, 10, 15, 0.08)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#00ff73';
+                ctx.font = `${fontSize}px monospace`;
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+                matrixRaf = requestAnimationFrame(drawMatrix);
+            }
+            matrixRaf = requestAnimationFrame(drawMatrix);
+
+            function closeMatrix() {
+                if (isClosed) return;
+                isClosed = true;
+                window.removeEventListener('keydown', onMatrixKey);
+                matrixWrap.style.opacity = '0';
+                setTimeout(() => {
+                    cancelAnimationFrame(matrixRaf);
+                    matrixWrap.remove();
+                }, 400);
+            }
+
+            function onMatrixKey(e) {
+                if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    closeMatrix();
+                }
+            }
+
+            matrixWrap.addEventListener('click', closeMatrix);
+            exitBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeMatrix();
+            });
+            window.addEventListener('keydown', onMatrixKey);
+
+            // Auto-close after 10 seconds if not dismissed
+            setTimeout(() => {
+                closeMatrix();
+            }, 10000);
+        }
+
+        // Easter Egg: Sudo Hire Confetti
+        function triggerSudoHire() {
+            closePalette();
+            const canvas = document.createElement('canvas');
+            canvas.id = 'confettiCanvas';
+            canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:99998;pointer-events:none;';
+            document.body.appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const colors = ['#40cfff', '#ff59b3', '#ffe600', '#22c55e', '#a855f7', '#ffffff'];
+            const particles = Array.from({ length: 80 }, () => ({
+                x: canvas.width / 2 + (Math.random() - 0.5) * 100,
+                y: canvas.height * 0.7,
+                vx: (Math.random() - 0.5) * 16,
+                vy: -(Math.random() * 14 + 10),
+                size: Math.random() * 8 + 4,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                rotation: Math.random() * 360,
+                vRot: (Math.random() - 0.5) * 10
+            }));
+
+            let confettiRaf;
+            function drawConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.35; // gravity
+                    p.vx *= 0.98; // drag
+                    p.rotation += p.vRot;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                });
+                confettiRaf = requestAnimationFrame(drawConfetti);
+            }
+            confettiRaf = requestAnimationFrame(drawConfetti);
+
+            setTimeout(() => {
+                cancelAnimationFrame(confettiRaf);
+                canvas.remove();
+            }, 3500);
+
+            // Pop GazeBot message and scroll to contact
+            const gazeText = document.getElementById('gazebotText');
+            const gazeBubble = document.getElementById('gazebotBubble');
+            if (gazeText && gazeBubble) {
+                gazeText.textContent = "🎉 Access granted! Opening direct contact form for you 🚀";
+                gazeBubble.classList.add('active');
+            }
+            scrollToSec('#contact');
+        }
+
+        // Easter Egg: Dev Joke
+        const DEV_JOKES = [
+            "Why do neural networks love coffee? Because it helps them avoid local minima! ☕",
+            "There are 10 types of people: those who understand binary, and those who don't. 💻",
+            "Why was the robot tired? Too many bytes to process! 🤖",
+            "A developer's favorite place to relax? The localhost. 🏡",
+            "My model didn't converge, so I told it to take a deep breath and backpropagate! 🧠",
+            "Why did the computer squeak? Someone stepped on its mouse! 🐭",
+            "Hardware: The part of a computer you can kick. Software: The part you can only curse at. 😂"
+        ];
+        function triggerDevJoke() {
+            closePalette();
+            const joke = DEV_JOKES[Math.floor(Math.random() * DEV_JOKES.length)];
+            const gazeText = document.getElementById('gazebotText');
+            const gazeBubble = document.getElementById('gazebotBubble');
+            const gazeHead = document.getElementById('gazebotHead');
+            const eyes = document.querySelectorAll('.gazebot-eye');
+
+            // Mascot happy reaction when delivering joke
+            if (gazeHead) {
+                gazeHead.classList.remove('wiggling');
+                void gazeHead.offsetWidth;
+                gazeHead.classList.add('wiggling');
+            }
+            eyes.forEach(eye => eye.classList.add('happy'));
+            setTimeout(() => {
+                eyes.forEach(eye => eye.classList.remove('happy'));
+            }, 1500);
+
+            if (gazeText && gazeBubble) {
+                gazeText.textContent = joke;
+                gazeBubble.classList.add('active');
+
+                // Let the joke stay for 16 seconds so visitors have plenty of time to read and laugh!
+                if (window.gazeJokeTimeout) clearTimeout(window.gazeJokeTimeout);
+                window.gazeJokeTimeout = setTimeout(() => {
+                    gazeBubble.classList.remove('active');
+                }, 16000);
+            } else {
+                alert(joke);
+            }
+        }
+
+        // Easter Egg: GazeBot Spin
+        function triggerGazeBotSpin() {
+            closePalette();
+            const gazeHead = document.getElementById('gazebotHead');
+            if (gazeHead) {
+                gazeHead.click();
+            }
+        }
+
+        const COMMAND_LIST = [
+            // Navigation
+            { id: 'about', title: 'About Asifur', desc: 'Jump to bio & background', category: 'Navigation', icon: '👤', tag: 'Jump', action: () => scrollToSec('#about') },
+            { id: 'projects', title: 'Key Projects', desc: 'Classroom Compass, Vision-Guided GazeBot', category: 'Navigation', icon: '🚀', tag: 'Jump', action: () => scrollToSec('#projects') },
+            { id: 'vibecoded', title: 'Things I vibecoded for Fun', desc: 'VidiHere, JiffBoltP2P, Master Patterns', category: 'Navigation', icon: '⚡', tag: 'Jump', action: () => scrollToSec('#vibecoded') },
+            { id: 'skills', title: 'Technical Skills', desc: 'Python, ML, Computer Vision, Robotics', category: 'Navigation', icon: '🛠️', tag: 'Jump', action: () => scrollToSec('#skills') },
+            { id: 'experience', title: 'Professional Experience', desc: 'Google Student Ambassador, Kshitij IIT KGP', category: 'Navigation', icon: '💼', tag: 'Jump', action: () => scrollToSec('#experience') },
+            { id: 'education', title: 'Education', desc: 'Techno International New Town (B.Tech CSE)', category: 'Navigation', icon: '🎓', tag: 'Jump', action: () => scrollToSec('#education') },
+            { id: 'achievements', title: 'Achievements & Awards', desc: 'Hackathons, quizzes, robot showcases', category: 'Navigation', icon: '🏆', tag: 'Jump', action: () => scrollToSec('#achievements') },
+            { id: 'certifications', title: 'Certifications', desc: 'IBM, Google, NPTEL, Duke University', category: 'Navigation', icon: '📜', tag: 'Jump', action: () => scrollToSec('#certifications') },
+            { id: 'contact', title: 'Contact Me', desc: 'Send a message or collaboration request', category: 'Navigation', icon: '✉️', tag: 'Jump', action: () => scrollToSec('#contact') },
+            { id: 'minigame', title: 'Beat the Mini-AI', desc: 'Play Tic-Tac-Toe vs Minimax AI', category: 'Navigation', icon: '🎮', tag: 'Play', action: () => scrollToSec('#mini-game') },
+
+            // Links
+            { id: 'resume', title: 'View Resume (Google Drive)', desc: 'Open latest updated PDF resume', category: 'Links', icon: '📄', tag: 'Link', action: () => window.open('https://drive.google.com/file/d/15oWowPVIAo07UF3ZkDwc-2dcF7dG3gUZ/view?usp=sharing', '_blank') },
+            { id: 'github', title: 'GitHub Profile', desc: 'github.com/asifur8282', category: 'Links', icon: '🐙', tag: 'Link', action: () => window.open('https://github.com/asifur8282', '_blank') },
+            { id: 'linkedin', title: 'LinkedIn Profile', desc: 'linkedin.com/in/asifur06rahaman', category: 'Links', icon: '🔗', tag: 'Link', action: () => window.open('https://linkedin.com/in/asifur06rahaman', '_blank') },
+
+            // Actions
+            { id: 'theme', title: 'Toggle Theme', desc: 'Switch between Dark Mode and Light Mode', category: 'Actions', icon: '🌓', tag: 'Action', action: () => { closePalette(); document.getElementById('darkModeToggle')?.click(); } },
+
+            // Easter Eggs
+            { id: 'matrix', title: 'matrix', desc: 'Enter the Matrix (Green falling digital rain)', category: 'Easter Eggs', icon: '🟢', tag: 'Fun', action: triggerMatrixRain },
+            { id: 'hire', title: 'sudo hire', desc: 'Confetti burst & fast-track collaboration', category: 'Easter Eggs', icon: '🎉', tag: 'Fun', action: triggerSudoHire },
+            { id: 'joke', title: 'joke', desc: 'Tell a random AI / ML developer joke', category: 'Easter Eggs', icon: '🤖', tag: 'Fun', action: triggerDevJoke },
+            { id: 'gazebot', title: 'gazebot', desc: 'Make GazeBot do an excited victory spin', category: 'Easter Eggs', icon: '👁️', tag: 'Fun', action: triggerGazeBotSpin }
+        ];
+
+        function renderResults(filtered) {
+            currentFiltered = filtered;
+            cmdResults.innerHTML = '';
+
+            if (filtered.length === 0) {
+                cmdResults.innerHTML = '<div class="cmd-empty">No matching commands found. Try "projects", "matrix", or "hire"!</div>';
+                return;
+            }
+
+            let currentCategory = '';
+            filtered.forEach((cmd, idx) => {
+                if (cmd.category !== currentCategory) {
+                    currentCategory = cmd.category;
+                    const groupTitle = document.createElement('div');
+                    groupTitle.className = 'cmd-group-title';
+                    groupTitle.textContent = currentCategory;
+                    cmdResults.appendChild(groupTitle);
+                }
+
+                const item = document.createElement('div');
+                item.className = 'cmd-item' + (idx === selectedIndex ? ' selected' : '');
+                item.setAttribute('role', 'option');
+                item.setAttribute('aria-selected', idx === selectedIndex ? 'true' : 'false');
+                item.innerHTML = `
+                    <div class="cmd-item-left">
+                        <span class="cmd-item-icon">${cmd.icon}</span>
+                        <div class="cmd-item-info">
+                            <span class="cmd-item-title">${cmd.title}</span>
+                            <span class="cmd-item-desc">${cmd.desc}</span>
+                        </div>
+                    </div>
+                    <span class="cmd-item-tag">${cmd.tag}</span>
+                `;
+
+                item.addEventListener('click', () => {
+                    cmd.action();
+                });
+
+                item.addEventListener('mouseenter', () => {
+                    selectedIndex = idx;
+                    updateSelection();
+                });
+
+                cmdResults.appendChild(item);
+            });
+        }
+
+        function updateSelection() {
+            const items = cmdResults.querySelectorAll('.cmd-item');
+            items.forEach((it, idx) => {
+                it.classList.toggle('selected', idx === selectedIndex);
+                it.setAttribute('aria-selected', idx === selectedIndex ? 'true' : 'false');
+            });
+            const sel = items[selectedIndex];
+            if (sel) {
+                sel.scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        function filterCommands(query) {
+            const q = query.toLowerCase().trim();
+            if (!q) return COMMAND_LIST;
+            return COMMAND_LIST.filter(c =>
+                c.id.toLowerCase().includes(q) ||
+                c.title.toLowerCase().includes(q) ||
+                c.desc.toLowerCase().includes(q) ||
+                c.category.toLowerCase().includes(q)
+            );
+        }
+
+        function openPalette() {
+            cmdModal.classList.add('active');
+            cmdModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('cmd-open');
+            cmdInput.value = '';
+            selectedIndex = 0;
+            renderResults(COMMAND_LIST);
+            setTimeout(() => cmdInput.focus(), 50);
+        }
+
+        function closePalette() {
+            cmdModal.classList.remove('active');
+            cmdModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('cmd-open');
+        }
+
+        cmdInput.addEventListener('input', (e) => {
+            selectedIndex = 0;
+            renderResults(filterCommands(e.target.value));
+        });
+
+        cmdInput.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (currentFiltered.length > 0) {
+                    selectedIndex = (selectedIndex + 1) % currentFiltered.length;
+                    updateSelection();
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (currentFiltered.length > 0) {
+                    selectedIndex = (selectedIndex - 1 + currentFiltered.length) % currentFiltered.length;
+                    updateSelection();
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentFiltered[selectedIndex]) {
+                    currentFiltered[selectedIndex].action();
+                }
+            } else if (e.key === 'Escape') {
+                closePalette();
+            }
+        });
+
+        if (cmdTrigger) cmdTrigger.addEventListener('click', openPalette);
+        if (cmdBackdrop) cmdBackdrop.addEventListener('click', closePalette);
+        if (cmdCloseBtn) cmdCloseBtn.addEventListener('click', closePalette);
+
+        // Global Keyboard Shortcut: Ctrl + K, Cmd + K, or "/"
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+                e.preventDefault();
+                if (cmdModal.classList.contains('active')) {
+                    closePalette();
+                } else {
+                    openPalette();
+                }
+            } else if (e.key === '/' && !cmdModal.classList.contains('active')) {
+                const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+                if (tag !== 'input' && tag !== 'textarea') {
+                    e.preventDefault();
+                    openPalette();
+                }
+            } else if (e.key === 'Escape' && cmdModal.classList.contains('active')) {
+                closePalette();
+            }
+        });
     }
 });
