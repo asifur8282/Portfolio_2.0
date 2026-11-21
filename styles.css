@@ -1304,6 +1304,14 @@ body:not(.dark-mode) .lightbox-backdrop {
     align-items: flex-end;
     pointer-events: none;
     user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+.gazebot-widget * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 .gazebot-bubble {
@@ -1351,12 +1359,20 @@ body:not(.dark-mode) .lightbox-backdrop {
     cursor: pointer;
     padding: 4px;
     border-radius: 50%;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
     transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .gazebot-bubble-close:hover {
     color: var(--accent-color);
     transform: scale(1.15);
+}
+
+.gazebot-bubble-close:focus,
+.gazebot-bubble-close:active {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .gazebot-bubble-arrow {
@@ -1388,6 +1404,11 @@ body:not(.dark-mode) .lightbox-backdrop {
     align-items: center;
     padding: 0;
     outline: none;
+    border-style: solid;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
     transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease, border-color 0.25s ease;
     animation: botFloat 4s ease-in-out infinite;
 }
@@ -1395,6 +1416,12 @@ body:not(.dark-mode) .lightbox-backdrop {
 .gazebot-head:hover {
     transform: scale(1.08) translateY(-2px);
     box-shadow: 0 12px 28px var(--glass-shadow), 0 0 22px rgba(64, 207, 255, 0.45);
+}
+
+.gazebot-head:focus,
+.gazebot-head:active {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .gazebot-head:focus-visible {

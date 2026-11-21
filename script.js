@@ -513,6 +513,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Mascot Click Interaction
         if (gazeHead) {
             gazeHead.addEventListener('click', () => {
+                gazeHead.blur(); // Remove mobile focus ring
+
                 // Wiggle head
                 gazeHead.classList.remove('wiggling');
                 void gazeHead.offsetWidth; // trigger reflow
