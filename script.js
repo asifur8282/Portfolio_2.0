@@ -514,9 +514,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Mascot Dizzy & Collapse Sequence
-        function triggerDizzyCollapse() {
+        function triggerDizzyCollapse(customMsg) {
             isDizzyOrCollapsed = true;
             rapidClickCount = 0;
+            shakeCount = 0;
 
             // Phase 1: Getting Dizzy (1.6s) - head wobbles furiously, eye pupils spin in spirals
             gazeHead.classList.remove('wiggling', 'rebooting');
@@ -527,7 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 eye.classList.remove('happy', 'blinking');
                 eye.classList.add('dizzy');
             });
-            showBubble("Whoa... system overload! 🌀 Too many boops!", 2200);
+            showBubble(customMsg || "Whoa... system overload! 🌀 Too many boops!", 2200);
 
             if (navigator.vibrate) {
                 try { navigator.vibrate([40, 50, 40, 50, 80]); } catch (err) {}
@@ -582,10 +583,221 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1600);
         }
 
-        // Mascot Click Interaction
+        // Mascot Drag & Shake Interaction
+        const DRAG_PROTESTS = [
+            "Hey Leave Me Alone! 😠",
+            "I'll complain to Master! 🚨",
+            "Put me down or I'll complain to Master Asifur! 🤖",
+            "Hey Leave Me Alone! Unhand me, human! 😤",
+            "Master Asifur didn't train me to be tossed around! 😵",
+            "I'm complaining to Master right now! 🚨"
+        ];
+
+        let isDragging = false;
+        let hasDragged = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let widgetStartLeft = 0;
+        let widgetStartTop = 0;
+        let dragProtestIndex = 0;
+        let dragProtestInterval = null;
+        let shakeCount = 0;
+        let lastShakeTime = 0;
+        let lastPointerX = 0;
+        let lastPointerY = 0;
+        let lastDx = 0;
+        let lastDy = 0;
+
+        function showDragProtest() {
+            dragProtestIndex = 0;
+            showBubble(DRAG_PROTESTS[0], 0);
+            if (navigator.vibrate) {
+                try { navigator.vibrate([30, 40, 30]); } catch (err) {}
+            }
+        }
+
+        function startDragProtests() {
+            stopDragProtests();
+            dragProtestInterval = setInterval(() => {
+                if (!isDragging) return;
+                dragProtestIndex = (dragProtestIndex + 1) % DRAG_PROTESTS.length;
+                showBubble(DRAG_PROTESTS[dragProtestIndex], 0);
+            }, 1800);
+        }
+
+        function stopDragProtests() {
+            if (dragProtestInterval) {
+                clearInterval(dragProtestInterval);
+                dragProtestInterval = null;
+            }
+        }
+
         if (gazeHead) {
+            // Pointer Down - start drag tracking
+            gazeHead.addEventListener('pointerdown', (e) => {
+                if (isDizzyOrCollapsed) return;
+                if (e.button !== 0 && e.pointerType === 'mouse') return;
+
+                const rect = gazebotWidget.getBoundingClientRect();
+                widgetStartLeft = rect.left;
+                widgetStartTop = rect.top;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                lastPointerX = e.clientX;
+                lastPointerY = e.clientY;
+                lastDx = 0;
+                lastDy = 0;
+                shakeCount = 0;
+                lastShakeTime = Date.now();
+                hasDragged = false;
+                isDragging = false;
+
+                try {
+                    gazeHead.setPointerCapture(e.pointerId);
+                } catch (err) {}
+            });
+
+            // Pointer Move - drag widget and detect rapid shaking
+            gazeHead.addEventListener('pointermove', (e) => {
+                if (!gazeHead.hasPointerCapture(e.pointerId)) return;
+                if (isDizzyOrCollapsed) return;
+
+                const deltaX = e.clientX - dragStartX;
+                const deltaY = e.clientY - dragStartY;
+                const dist = Math.hypot(deltaX, deltaY);
+
+                // Distinct threshold for mouse (14px) and touch (20px) to prevent micro-jitters during clicking
+                const dragThreshold = e.pointerType === 'touch' ? 20 : 14;
+
+                // Only start drag when intentional movement exceeds threshold
+                if (!hasDragged && dist >= dragThreshold) {
+                    hasDragged = true;
+                    isDragging = true;
+                    // Reset anchor coordinates to current cursor location so motion begins with 0 jump
+                    dragStartX = e.clientX;
+                    dragStartY = e.clientY;
+                    const curRect = gazebotWidget.getBoundingClientRect();
+                    widgetStartLeft = curRect.left;
+                    widgetStartTop = curRect.top;
+
+                    gazebotWidget.classList.add('dragging');
+                    showDragProtest();
+                    startDragProtests();
+                }
+
+                if (isDragging) {
+                    e.preventDefault();
+
+                    const currentDeltaX = e.clientX - dragStartX;
+                    const currentDeltaY = e.clientY - dragStartY;
+
+                    const widgetWidth = gazebotWidget.offsetWidth || 60;
+                    const widgetHeight = gazebotWidget.offsetHeight || 52;
+                    const minX = 8;
+                    const maxX = window.innerWidth - widgetWidth - 8;
+                    const minY = 8;
+                    const maxY = window.innerHeight - widgetHeight - 8;
+
+                    let newLeft = widgetStartLeft + currentDeltaX;
+                    let newTop = widgetStartTop + currentDeltaY;
+
+                    newLeft = Math.max(minX, Math.min(newLeft, maxX));
+                    newTop = Math.max(minY, Math.min(newTop, maxY));
+
+                    gazebotWidget.style.right = 'auto';
+                    gazebotWidget.style.bottom = 'auto';
+                    gazebotWidget.style.left = `${newLeft}px`;
+                    gazebotWidget.style.top = `${newTop}px`;
+
+                    // Dynamic bubble positioning
+                    if (newTop < 140) {
+                        gazebotWidget.classList.add('bubble-below');
+                    } else {
+                        gazebotWidget.classList.remove('bubble-below');
+                    }
+
+                    if (newLeft < 160) {
+                        gazebotWidget.classList.add('align-left');
+                    } else {
+                        gazebotWidget.classList.remove('align-left');
+                    }
+
+                    // Shake Detection (rapid reversals in motion)
+                    const now = Date.now();
+                    const moveDx = e.clientX - lastPointerX;
+                    const moveDy = e.clientY - lastPointerY;
+                    const moveDist = Math.hypot(moveDx, moveDy);
+
+                    if (moveDist > 14) {
+                        const xReversed = lastDx !== 0 && Math.sign(moveDx) !== Math.sign(lastDx) && Math.abs(moveDx) > 10;
+                        const yReversed = lastDy !== 0 && Math.sign(moveDy) !== Math.sign(lastDy) && Math.abs(moveDy) > 10;
+
+                        if (xReversed || yReversed) {
+                            if (now - lastShakeTime < 750) {
+                                shakeCount++;
+                            } else {
+                                shakeCount = 1;
+                            }
+                            lastShakeTime = now;
+
+                            // Shaking too much makes GazeBot dizzy and reboot!
+                            if (shakeCount >= 5) {
+                                stopDragProtests();
+                                isDragging = false;
+                                gazebotWidget.classList.remove('dragging');
+                                try {
+                                    gazeHead.releasePointerCapture(e.pointerId);
+                                } catch (err) {}
+
+                                triggerDizzyCollapse("Whoa... too much shaking! 🌀 Systems failing...");
+                                return;
+                            }
+                        }
+
+                        lastDx = moveDx;
+                        lastDy = moveDy;
+                    }
+
+                    lastPointerX = e.clientX;
+                    lastPointerY = e.clientY;
+                }
+            });
+
+            // Pointer Up / Cancel - end drag and release
+            const handleDragEnd = (e) => {
+                const wasDragging = isDragging;
+                stopDragProtests();
+                isDragging = false;
+                gazebotWidget.classList.remove('dragging');
+
+                if (gazeHead.hasPointerCapture(e.pointerId)) {
+                    try {
+                        gazeHead.releasePointerCapture(e.pointerId);
+                    } catch (err) {}
+                }
+
+                if (wasDragging && !isDizzyOrCollapsed) {
+                    showBubble("Whew! Finally put me down! 😤", 4000);
+                    if (navigator.vibrate) {
+                        try { navigator.vibrate(35); } catch (err) {}
+                    }
+                }
+
+                // If a real drag happened, keep hasDragged true briefly so the trailing click event is suppressed
+                if (hasDragged) {
+                    setTimeout(() => {
+                        hasDragged = false;
+                    }, 140);
+                }
+            };
+
+            gazeHead.addEventListener('pointerup', handleDragEnd);
+            gazeHead.addEventListener('pointercancel', handleDragEnd);
+
+            // Mascot Click Interaction
             gazeHead.addEventListener('click', () => {
                 gazeHead.blur(); // Remove mobile focus ring
+                if (hasDragged || isDragging) return; // Suppress click right after drag
                 if (isDizzyOrCollapsed) return; // Ignore clicks during collapse/reboot
 
                 const now = Date.now();
@@ -636,7 +848,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Eye Gaze Tracking
         function updateGaze(targetX, targetY) {
-            if (isDizzyOrCollapsed) return;
+            if (isDizzyOrCollapsed || isDragging) return;
             if (!pupilL || !pupilR) return;
 
             [pupilL, pupilR].forEach(pupil => {
@@ -681,6 +893,20 @@ document.addEventListener("DOMContentLoaded", () => {
             if (e.touches && e.touches.length > 0) {
                 updateGaze(e.touches[0].clientX, e.touches[0].clientY);
             }
+        }, { passive: true });
+
+        // Keep dragged mascot in viewport on resize
+        window.addEventListener('resize', () => {
+            if (!gazebotWidget.style.left) return;
+            const widgetWidth = gazebotWidget.offsetWidth || 60;
+            const widgetHeight = gazebotWidget.offsetHeight || 52;
+            const maxX = window.innerWidth - widgetWidth - 8;
+            const maxY = window.innerHeight - widgetHeight - 8;
+            const curLeft = parseFloat(gazebotWidget.style.left) || 0;
+            const curTop = parseFloat(gazebotWidget.style.top) || 0;
+
+            if (curLeft > maxX) gazebotWidget.style.left = `${Math.max(8, maxX)}px`;
+            if (curTop > maxY) gazebotWidget.style.top = `${Math.max(8, maxY)}px`;
         }, { passive: true });
 
         // Random Blinking

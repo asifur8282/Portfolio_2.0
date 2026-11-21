@@ -1316,6 +1316,48 @@ body:not(.dark-mode) .lightbox-backdrop {
     -webkit-touch-callout: none;
 }
 
+.gazebot-widget.dragging {
+    transition: none !important;
+    z-index: 99995 !important;
+}
+
+/* Adaptive speech bubble positioning when dragged */
+.gazebot-widget.bubble-below {
+    flex-direction: column-reverse !important;
+}
+
+.gazebot-widget.bubble-below .gazebot-bubble {
+    margin-top: 12px;
+    margin-bottom: 0;
+    transform-origin: top right;
+}
+
+.gazebot-widget.bubble-below .gazebot-bubble-arrow {
+    bottom: auto;
+    top: -6px;
+    border-right: none;
+    border-bottom: none;
+    border-left: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-border);
+}
+
+.gazebot-widget.align-left {
+    align-items: flex-start !important;
+}
+
+.gazebot-widget.align-left .gazebot-bubble {
+    transform-origin: bottom left;
+}
+
+.gazebot-widget.bubble-below.align-left .gazebot-bubble {
+    transform-origin: top left;
+}
+
+.gazebot-widget.align-left .gazebot-bubble-arrow {
+    right: auto;
+    left: 24px;
+}
+
 .gazebot-widget * {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -1397,6 +1439,8 @@ body:not(.dark-mode) .lightbox-backdrop {
 
 .gazebot-head {
     pointer-events: auto;
+    touch-action: none;
+    cursor: grab;
     position: relative;
     width: 60px;
     height: 52px;
@@ -1406,7 +1450,6 @@ body:not(.dark-mode) .lightbox-backdrop {
     border: 1.5px solid var(--accent-color);
     border-radius: 20px;
     box-shadow: 0 8px 24px var(--glass-shadow), 0 0 15px rgba(64, 207, 255, 0.25);
-    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1424,6 +1467,25 @@ body:not(.dark-mode) .lightbox-backdrop {
 .gazebot-head:hover {
     transform: scale(1.08) translateY(-2px);
     box-shadow: 0 12px 28px var(--glass-shadow), 0 0 22px rgba(64, 207, 255, 0.45);
+}
+
+.gazebot-head:active,
+.gazebot-widget.dragging .gazebot-head {
+    cursor: grabbing !important;
+}
+
+.gazebot-widget.dragging .gazebot-head {
+    transform: scale(1.12) !important;
+    box-shadow: 0 16px 36px var(--glass-shadow), 0 0 28px rgba(64, 207, 255, 0.65) !important;
+    animation: none !important;
+}
+
+/* Wide alarmed pupils while dragging */
+.gazebot-widget.dragging .gazebot-pupil {
+    transform: none !important;
+    width: 10px !important;
+    height: 13px !important;
+    box-shadow: 0 0 14px #40cfff, inset 0 0 4px #fff !important;
 }
 
 .gazebot-head:focus,
