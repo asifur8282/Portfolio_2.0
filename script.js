@@ -484,6 +484,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let quoteIndex = 0;
         let bubbleTimeout = null;
         let blinkTimeout = null;
+        let rapidClickCount = 0;
+        let lastClickTime = 0;
+        let isDizzyOrCollapsed = false;
 
         function showBubble(text, duration = 5000) {
             if (!gazeBubble || !gazeText) return;
@@ -510,12 +513,95 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Mascot Dizzy & Collapse Sequence
+        function triggerDizzyCollapse() {
+            isDizzyOrCollapsed = true;
+            rapidClickCount = 0;
+
+            // Phase 1: Getting Dizzy (1.6s) - head wobbles furiously, eye pupils spin in spirals
+            gazeHead.classList.remove('wiggling');
+            gazeHead.classList.add('dizzy');
+            eyes.forEach(eye => {
+                eye.classList.remove('happy', 'blinking');
+                eye.classList.add('dizzy');
+            });
+            showBubble("Whoa... system overload! 🌀 Too many boops!", 2200);
+
+            if (navigator.vibrate) {
+                try { navigator.vibrate([40, 50, 40, 50, 80]); } catch (err) {}
+            }
+
+            // Phase 2: Collapse (2.6s) - head droops sideways, eyes dim to lines
+            setTimeout(() => {
+                gazeHead.classList.remove('dizzy');
+                gazeHead.classList.add('collapsed');
+                eyes.forEach(eye => {
+                    eye.classList.remove('dizzy');
+                    eye.classList.add('collapsed');
+                });
+                showBubble("⚠️ GazeOS Kernel Panic! Collapsed... 💤", 1800);
+
+                // Show reboot countdown
+                setTimeout(() => {
+                    if (isDizzyOrCollapsed) {
+                        showBubble("Rebooting in 3... 2... 1... ⚡", 1800);
+                    }
+                }, 1100);
+
+                // Phase 3: Reboot & Recovery - springs and bounces back to life!
+                setTimeout(() => {
+                    gazeHead.classList.remove('collapsed');
+                    gazeHead.classList.add('rebooting');
+                    eyes.forEach(eye => {
+                        eye.classList.remove('collapsed');
+                        eye.classList.add('happy');
+                    });
+
+                    showBubble("✨ Reboot complete! 🔋 I'm back, but please be gentle! 😂", 7000);
+
+                    if (navigator.vibrate) {
+                        try { navigator.vibrate([60, 50, 100]); } catch (err) {}
+                    }
+
+                    // Reset to normal operational state after reboot bounce (850ms)
+                    setTimeout(() => {
+                        gazeHead.classList.remove('rebooting');
+                        eyes.forEach(eye => eye.classList.remove('happy'));
+                        isDizzyOrCollapsed = false;
+                        rapidClickCount = 0;
+                    }, 850);
+                }, 2600);
+            }, 1600);
+        }
+
         // Mascot Click Interaction
         if (gazeHead) {
             gazeHead.addEventListener('click', () => {
                 gazeHead.blur(); // Remove mobile focus ring
+                if (isDizzyOrCollapsed) return; // Ignore clicks during collapse/reboot
 
-                // Wiggle head
+                const now = Date.now();
+                if (now - lastClickTime < 900) {
+                    rapidClickCount++;
+                } else {
+                    rapidClickCount = 1;
+                }
+                lastClickTime = now;
+
+                // Clicking 5 times rapidly triggers dizziness & collapse!
+                if (rapidClickCount >= 5) {
+                    triggerDizzyCollapse();
+                    return;
+                }
+
+                // Escalating speech bubbles on clicks 3 and 4
+                if (rapidClickCount === 3) {
+                    showBubble("Hey, that's fast! 😵‍💫", 2200);
+                } else if (rapidClickCount === 4) {
+                    showBubble("Wait, I'm getting dizzy...! 🌀", 2200);
+                }
+
+                // Normal click wiggle
                 gazeHead.classList.remove('wiggling');
                 void gazeHead.offsetWidth; // trigger reflow
                 gazeHead.classList.add('wiggling');
@@ -523,12 +609,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Happy eyes for 1.2s
                 eyes.forEach(eye => eye.classList.add('happy'));
                 setTimeout(() => {
-                    eyes.forEach(eye => eye.classList.remove('happy'));
+                    if (!isDizzyOrCollapsed) {
+                        eyes.forEach(eye => eye.classList.remove('happy'));
+                    }
                 }, 1200);
 
-                // Show next quote
-                quoteIndex = (quoteIndex + 1) % GAZEBOT_QUOTES.length;
-                showBubble(GAZEBOT_QUOTES[quoteIndex], 9000);
+                // Show next quote on normal clicks
+                if (rapidClickCount < 3) {
+                    quoteIndex = (quoteIndex + 1) % GAZEBOT_QUOTES.length;
+                    showBubble(GAZEBOT_QUOTES[quoteIndex], 9000);
+                }
 
                 if (navigator.vibrate) {
                     try { navigator.vibrate(18); } catch (err) {}
@@ -538,6 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Eye Gaze Tracking
         function updateGaze(targetX, targetY) {
+            if (isDizzyOrCollapsed) return;
             if (!pupilL || !pupilR) return;
 
             [pupilL, pupilR].forEach(pupil => {
@@ -586,6 +677,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Random Blinking
         function scheduleBlink() {
+            if (isDizzyOrCollapsed) {
+                blinkTimeout = setTimeout(scheduleBlink, 2000);
+                return;
+            }
             eyes.forEach(eye => eye.classList.add('blinking'));
             setTimeout(() => {
                 eyes.forEach(eye => eye.classList.remove('blinking'));
