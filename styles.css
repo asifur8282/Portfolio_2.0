@@ -1530,61 +1530,66 @@ body.dark-mode .gazebot-pupil {
 }
 
 /* Dizzy state: rapid head wobble and spinning spiral eyes */
-.gazebot-head.dizzy {
+.gazebot-head.dizzy,
+.gazebot-head.dizzy:hover {
     animation: botDizzy 0.22s infinite alternate ease-in-out !important;
     border-color: #f59e0b !important;
-    box-shadow: 0 0 22px rgba(245, 158, 11, 0.6) !important;
+    box-shadow: 0 0 24px rgba(245, 158, 11, 0.7) !important;
 }
 
 .gazebot-head.dizzy .gazebot-led {
-    background: #f59e0b;
-    box-shadow: 0 0 10px #f59e0b;
-    animation: ledFastAlert 0.12s infinite alternate;
+    background: #f59e0b !important;
+    box-shadow: 0 0 12px #f59e0b !important;
+    animation: ledFastAlert 0.12s infinite alternate !important;
 }
 
-.gazebot-eye.dizzy .gazebot-pupil {
+.gazebot-eye.dizzy .gazebot-pupil,
+body.dark-mode .gazebot-eye.dizzy .gazebot-pupil {
     animation: eyeSpiral 0.35s infinite linear !important;
-    background: #f59e0b;
-    box-shadow: 0 0 8px #f59e0b;
+    background: #f59e0b !important;
+    box-shadow: 0 0 10px #f59e0b !important;
 }
 
 /* Collapsed state: head drops down and tilts sideways, eyes dim to lines */
-.gazebot-head.collapsed {
-    transform: translateY(20px) rotate(48deg) scale(0.86) !important;
+.gazebot-head.collapsed,
+.gazebot-head.collapsed:hover {
+    transform: translateY(22px) rotate(48deg) scale(0.86) !important;
     border-color: #64748b !important;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
-    opacity: 0.72;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+    opacity: 0.72 !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease !important;
     animation: none !important;
 }
 
 .gazebot-head.collapsed .gazebot-led {
-    background: #334155;
-    box-shadow: none;
-    animation: none;
+    background: #334155 !important;
+    box-shadow: none !important;
+    animation: none !important;
 }
 
-.gazebot-eye.collapsed .gazebot-pupil {
+.gazebot-eye.collapsed .gazebot-pupil,
+body.dark-mode .gazebot-eye.collapsed .gazebot-pupil {
     height: 2px !important;
     width: 9px !important;
     border-radius: 1px !important;
     background: #64748b !important;
     box-shadow: none !important;
-    transform: translate(0, 0) !important;
+    transform: none !important;
     animation: none !important;
 }
 
 /* Rebooting state: head springs and bounces back up */
-.gazebot-head.rebooting {
+.gazebot-head.rebooting,
+.gazebot-head.rebooting:hover {
     animation: botReboot 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
     border-color: #22c55e !important;
     box-shadow: 0 0 25px rgba(34, 197, 94, 0.65) !important;
 }
 
 .gazebot-head.rebooting .gazebot-led {
-    background: #22c55e;
-    box-shadow: 0 0 14px #22c55e;
-    animation: ledPulse 0.4s infinite alternate;
+    background: #22c55e !important;
+    box-shadow: 0 0 14px #22c55e !important;
+    animation: ledPulse 0.4s infinite alternate !important;
 }
 
 .gazebot-hint {

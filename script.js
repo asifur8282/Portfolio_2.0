@@ -519,8 +519,10 @@ document.addEventListener("DOMContentLoaded", () => {
             rapidClickCount = 0;
 
             // Phase 1: Getting Dizzy (1.6s) - head wobbles furiously, eye pupils spin in spirals
-            gazeHead.classList.remove('wiggling');
+            gazeHead.classList.remove('wiggling', 'rebooting');
             gazeHead.classList.add('dizzy');
+            if (pupilL) pupilL.style.transform = '';
+            if (pupilR) pupilR.style.transform = '';
             eyes.forEach(eye => {
                 eye.classList.remove('happy', 'blinking');
                 eye.classList.add('dizzy');
@@ -535,6 +537,8 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 gazeHead.classList.remove('dizzy');
                 gazeHead.classList.add('collapsed');
+                if (pupilL) pupilL.style.transform = '';
+                if (pupilR) pupilR.style.transform = '';
                 eyes.forEach(eye => {
                     eye.classList.remove('dizzy');
                     eye.classList.add('collapsed');
@@ -552,6 +556,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     gazeHead.classList.remove('collapsed');
                     gazeHead.classList.add('rebooting');
+                    if (pupilL) pupilL.style.transform = '';
+                    if (pupilR) pupilR.style.transform = '';
                     eyes.forEach(eye => {
                         eye.classList.remove('collapsed');
                         eye.classList.add('happy');
@@ -567,6 +573,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     setTimeout(() => {
                         gazeHead.classList.remove('rebooting');
                         eyes.forEach(eye => eye.classList.remove('happy'));
+                        if (pupilL) pupilL.style.transform = '';
+                        if (pupilR) pupilR.style.transform = '';
                         isDizzyOrCollapsed = false;
                         rapidClickCount = 0;
                     }, 850);
