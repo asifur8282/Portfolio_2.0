@@ -691,8 +691,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     const currentDeltaX = e.clientX - dragStartX;
                     const currentDeltaY = e.clientY - dragStartY;
 
-                    const widgetWidth = gazebotWidget.offsetWidth || 60;
-                    const widgetHeight = gazebotWidget.offsetHeight || 52;
+                    const widgetWidth = 60;
+                    const widgetHeight = 52;
                     const minX = 8;
                     const maxX = window.innerWidth - widgetWidth - 8;
                     const minY = 8;
@@ -716,7 +716,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         gazebotWidget.classList.remove('bubble-below');
                     }
 
-                    if (newLeft < 160) {
+                    const headCenterX = newLeft + (widgetWidth / 2);
+                    if (headCenterX < window.innerWidth / 2) {
                         gazebotWidget.classList.add('align-left');
                     } else {
                         gazebotWidget.classList.remove('align-left');
@@ -898,15 +899,24 @@ document.addEventListener("DOMContentLoaded", () => {
         // Keep dragged mascot in viewport on resize
         window.addEventListener('resize', () => {
             if (!gazebotWidget.style.left) return;
-            const widgetWidth = gazebotWidget.offsetWidth || 60;
-            const widgetHeight = gazebotWidget.offsetHeight || 52;
+            const widgetWidth = 60;
+            const widgetHeight = 52;
             const maxX = window.innerWidth - widgetWidth - 8;
             const maxY = window.innerHeight - widgetHeight - 8;
             const curLeft = parseFloat(gazebotWidget.style.left) || 0;
             const curTop = parseFloat(gazebotWidget.style.top) || 0;
 
-            if (curLeft > maxX) gazebotWidget.style.left = `${Math.max(8, maxX)}px`;
-            if (curTop > maxY) gazebotWidget.style.top = `${Math.max(8, maxY)}px`;
+            const clampedX = Math.max(8, Math.min(curLeft, maxX));
+            const clampedY = Math.max(8, Math.min(curTop, maxY));
+            gazebotWidget.style.left = `${clampedX}px`;
+            gazebotWidget.style.top = `${clampedY}px`;
+
+            const headCenterX = clampedX + (widgetWidth / 2);
+            if (headCenterX < window.innerWidth / 2) {
+                gazebotWidget.classList.add('align-left');
+            } else {
+                gazebotWidget.classList.remove('align-left');
+            }
         }, { passive: true });
 
         // Random Blinking

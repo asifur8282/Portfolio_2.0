@@ -1305,10 +1305,9 @@ body:not(.dark-mode) .lightbox-backdrop {
     position: fixed;
     bottom: 24px;
     right: 24px;
+    width: 60px;
+    height: 52px;
     z-index: 990;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
@@ -1321,14 +1320,45 @@ body:not(.dark-mode) .lightbox-backdrop {
     z-index: 99995 !important;
 }
 
-/* Adaptive speech bubble positioning when dragged */
-.gazebot-widget.bubble-below {
-    flex-direction: column-reverse !important;
+.gazebot-widget * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
+.gazebot-bubble {
+    pointer-events: none;
+    position: absolute;
+    bottom: calc(100% + 14px);
+    right: 0;
+    width: max-content;
+    max-width: min(250px, calc(100vw - 32px));
+    background: var(--inner-glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 25px var(--glass-shadow);
+    border-radius: 16px;
+    padding: 10px 14px;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+    transform-origin: bottom right;
+    transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    visibility: hidden;
+    z-index: 995;
+}
+
+.gazebot-bubble.active {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+}
+
+/* Adaptive speech bubble positioning when dragged */
 .gazebot-widget.bubble-below .gazebot-bubble {
-    margin-top: 12px;
-    margin-bottom: 0;
+    bottom: auto;
+    top: calc(100% + 14px);
     transform-origin: top right;
 }
 
@@ -1341,11 +1371,9 @@ body:not(.dark-mode) .lightbox-backdrop {
     border-top: 1px solid var(--glass-border);
 }
 
-.gazebot-widget.align-left {
-    align-items: flex-start !important;
-}
-
 .gazebot-widget.align-left .gazebot-bubble {
+    right: auto;
+    left: 0;
     transform-origin: bottom left;
 }
 
@@ -1356,37 +1384,6 @@ body:not(.dark-mode) .lightbox-backdrop {
 .gazebot-widget.align-left .gazebot-bubble-arrow {
     right: auto;
     left: 24px;
-}
-
-.gazebot-widget * {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-}
-
-.gazebot-bubble {
-    pointer-events: none;
-    background: var(--inner-glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 10px 25px var(--glass-shadow);
-    border-radius: 16px;
-    padding: 10px 14px;
-    max-width: 250px;
-    position: relative;
-    margin-bottom: 12px;
-    opacity: 0;
-    transform: translateY(10px) scale(0.9);
-    transform-origin: bottom right;
-    transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    visibility: hidden;
-}
-
-.gazebot-bubble.active {
-    pointer-events: auto;
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    visibility: visible;
 }
 
 .gazebot-text {
@@ -2025,5 +2022,15 @@ body.cmd-open {
         justify-content: center;
         flex-wrap: wrap;
         gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gazebot-bubble {
+        max-width: min(215px, calc(100vw - 28px));
+        padding: 8px 12px;
+    }
+    .gazebot-text {
+        font-size: 0.8rem;
     }
 }
