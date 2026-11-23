@@ -15,7 +15,7 @@
   <br>
 
   <p align="center">
-    A sleek, ultra-responsive, zero-framework developer portfolio featuring dynamic glassmorphism, animated ambient gradient blobs, interactive image lightboxes, a playable mini-AI game, and seamless theme toggling.
+    A sleek, ultra-responsive, zero-framework developer portfolio featuring dynamic glassmorphism, an interactive vision-guided mascot with drag & physics reactions, a fast keyboard-driven Command Palette (Ctrl+K), animated ambient gradient blobs, interactive image lightboxes, a playable mini-AI game, and seamless theme toggling.
   </p>
 
   ### 🌐 [Explore the Live Portfolio Here](https://asifur-rahaman-portfolio.vercel.app/)
@@ -29,6 +29,17 @@
 - 🔮 **Futuristic Glassmorphic Interface:** Handcrafted backdrop blur (`backdrop-filter: blur(16px)`), subtle translucent borders, and smooth hover interactions built entirely in pure CSS.
 - 🎨 **Ambient Liquid Blobs:** Multi-point floating fluid background gradients that smoothly animate across the canvas.
 - 🌓 **Dynamic Theme Switching:** Integrated Dark / Light mode toggle with instant transitions and persistent user preference state saved via `localStorage`.
+- 🤖 **Interactive GazeBot Mascot (Vision-Guided Companion):**
+  - Inspired by Asifur's robotics research (*Vision-Guided GazeBot*).
+  - **Dynamic Gaze Tracking:** Pupils follow mouse cursor and touch movements smoothly within visor sockets using `requestAnimationFrame`.
+  - **PC & Mobile Draggability:** Powered by Unified Pointer Events with `touch-action: none` (prevents mobile viewport scroll while dragging).
+  - **Humorous Protest Dialogues:** Speaks hilarious quotes when picked up (*"Hey Leave Me Alone! 😠"*, *"I'll complain to Master! 🚨"*, *"Put me down or I'll complain to Master Asifur! 🤖"*).
+  - **Shake-to-Dizzy & System Reboot:** Shaking GazeBot vigorously or rapid clicking triggers a multi-phase system failure sequence (furious wobble & yellow spiral eyes $\rightarrow$ collapsed kernel panic $\rightarrow$ countdown reboot $\rightarrow$ bouncing recovery pulse).
+  - **Adaptive Floating Speech Bubble:** Floating speech bubble dynamically detects screen bounds, inverting below when near the top and aligning left/right based on screen center with zero clipping.
+- ⌨️ **Glass Command Palette (`Ctrl + K` / `⌘K`):**
+  - Spotlight-style keyboard navigation across all portfolio sections (About, Experience, Education, Skills, Achievements, Certifications, Projects, Contact).
+  - Quick utility actions (Toggle Dark/Light Mode, Download Resume, Send Email).
+  - **Easter Eggs:** Built-in Matrix Digital Rain animation (`matrix` / `rain`), Dad Joke generator (`joke`), and terminal commands (`hire`, `socials`, `clear`).
 - 🎮 **Interactive "Beat the Mini-AI" Mini-Game:**
   - Built-in Tic-Tac-Toe directly on the page above the footer.
   - **Smart AI:** Unbeatable opponent powered by the Minimax game-tree search algorithm.
@@ -38,7 +49,7 @@
   - **Agentic & Screen-Reader Accessible:** Structured with WAI-ARIA `role="group"` and explicit coordinate labels (`Square 1 (Top Left)`, `Square 5 (Center)`).
 - 🔍 **Click-to-Enlarge Lightbox Modal:** Full-screen responsive lightbox modal for project and award certificate photos, with backdrop blur, image scaling, and `Escape` key listeners.
 - 📬 **Asynchronous Contact Form:** Direct serverless email dispatch powered by Web3Forms with bot-check anti-spam traps and user-friendly status indicators.
-- ⚡ **Zero-Framework Performance:** 100% vanilla HTML5, CSS3 (Grid & Flexbox), and modern ES6+ JavaScript. No build steps, zero node runtime dependencies, and high Lighthouse scores.
+- ⚡ **Zero-Framework Performance:** 100% vanilla HTML5, CSS3 (Grid & Flexbox), and modern ES6+ JavaScript. No build steps, zero node runtime dependencies, and high Lighthouse scores (100 Accessibility, 100 Best Practices, 100 SEO).
 - 🤖 **AI-First & SEO Optimized:** Complete with [`llms.txt`](llms.txt) for LLM search indexing, [`sitemap.xml`](sitemap.xml), [`robots.txt`](robots.txt), and rich OpenGraph social cards.
 
 ---
@@ -47,12 +58,13 @@
 
 | Layer | Technologies / Methods |
 | :--- | :--- |
-| **Markup & Semantics** | HTML5, Semantic Elements, WAI-ARIA 1.2 Attributes |
-| **Styling & Effects** | CSS3 (Custom Properties / Variables, CSS Grid, Flexbox, Glassmorphism, Keyframe Animations) |
-| **Interactivity** | Vanilla JavaScript (ES6+, DOM Manipulation, IntersectionObserver, Minimax Algorithm) |
+| **Markup & Semantics** | HTML5, Semantic Elements, WAI-ARIA 1.2 Attributes, `inert` Modals |
+| **Styling & Effects** | CSS3 (Custom Properties / Variables, CSS Grid, Flexbox, Glassmorphism, GPU Keyframe Transforms) |
+| **Interactivity & State** | Vanilla JavaScript (ES6+, Unified Pointer Events, Pointer Capture, IntersectionObserver, Minimax Algorithm) |
+| **Canvas & Graphics** | HTML5 2D Canvas (Matrix Digital Rain Easter Egg) |
 | **Forms & Backend** | Web3Forms Asynchronous API |
 | **SEO & LLM Discovery** | `llms.txt`, OpenGraph Tags, XML Sitemaps, Schema Standards |
-| **Hosting & Deployment** | Vercel Edge Network |
+| **Hosting & Caching** | Vercel Edge Network with Immutable Asset Caching (`vercel.json`) |
 
 ---
 
@@ -70,9 +82,10 @@ asifur-rahaman-portfolio/
 ├── llms.txt                    # Standardized structured markdown for LLMs & AI crawlers
 ├── README.md                   # Project documentation and guide
 ├── robots.txt                  # Web crawler instructions
-├── script.js                   # Client interactivity, theme state, lightbox, & mini-AI game
+├── script.js                   # Client interactivity, mascot physics, command palette, lightbox & mini-AI game
 ├── sitemap.xml                 # Canonical XML URL index
-├── styles.css                  # Core design system, glass variables, & responsive breakpoints
+├── styles.css                  # Core design system, glass variables, mascot animations & responsive breakpoints
+├── vercel.json                 # Immutable edge caching headers & deployment config
 └── web-banner.jpg              # OpenGraph and README social display banner
 ```
 
