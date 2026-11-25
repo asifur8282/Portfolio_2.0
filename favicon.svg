@@ -1,10 +1,79 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="14" fill="#0b0f19"/>
-  <!-- Tech Brackets -->
-  <path d="M 12 20 L 6 32 L 12 44" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 52 20 L 58 32 L 52 44" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Monogram AR -->
-  <text x="32" y="42" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="28" fill="#f8fafc" text-anchor="middle" letter-spacing="-1">AR</text>
-  <!-- Accent Node -->
-  <circle cx="32" cy="16" r="3" fill="#38bdf8"/>
+  <defs>
+    <!-- Background Head Gradient -->
+    <linearGradient id="headGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#162238"/>
+      <stop offset="60%" stop-color="#0e1728"/>
+      <stop offset="100%" stop-color="#060a12"/>
+    </linearGradient>
+
+    <!-- Neon Cyan Border Gradient -->
+    <linearGradient id="cyanBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#00e5ff"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+
+    <!-- Visor Deep Black Gradient -->
+    <linearGradient id="visorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#020408"/>
+      <stop offset="100%" stop-color="#080d1a"/>
+    </linearGradient>
+
+    <!-- Glowing Eye Pupils Gradient -->
+    <linearGradient id="eyeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cffafe"/>
+      <stop offset="25%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Antenna LED Glow Gradient -->
+    <radialGradient id="ledGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </radialGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Antenna Assembly -->
+  <!-- Stem -->
+  <line x1="32" y1="9" x2="32" y2="16" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- LED Outer Glow -->
+  <circle cx="32" cy="7" r="5" fill="#00e5ff" opacity="0.3"/>
+  <!-- LED Node -->
+  <circle cx="32" cy="7" r="3.2" fill="url(#ledGlow)" filter="url(#softGlow)"/>
+
+  <!-- Robot Head Chassis -->
+  <!-- Outer Glow Shadow -->
+  <rect x="7" y="15" width="50" height="43" rx="15" fill="#00e5ff" opacity="0.12"/>
+  <!-- Main Head Body -->
+  <rect x="7" y="15" width="50" height="43" rx="15" fill="url(#headGrad)" stroke="url(#cyanBorder)" stroke-width="2"/>
+
+  <!-- Top Glass Highlight -->
+  <path d="M 16 18 Q 32 16.5 48 18" stroke="rgba(255, 255, 255, 0.28)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+
+  <!-- Visor Socket -->
+  <rect x="13.5" y="24" width="37" height="24.5" rx="9.5" fill="url(#visorGrad)" stroke="rgba(56, 189, 248, 0.35)" stroke-width="1"/>
+  <!-- Visor Upper Sheen -->
+  <path d="M 17 27 Q 32 25 47 27" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" stroke-linecap="round" fill="none"/>
+
+  <!-- Left Eye -->
+  <g filter="url(#softGlow)">
+    <rect x="20.5" y="29.5" width="8.5" height="13.5" rx="4.25" fill="url(#eyeGrad)"/>
+    <!-- Specular Glint -->
+    <ellipse cx="23" cy="32.5" rx="1.3" ry="1.8" fill="#ffffff" opacity="0.95"/>
+  </g>
+
+  <!-- Right Eye -->
+  <g filter="url(#softGlow)">
+    <rect x="35" y="29.5" width="8.5" height="13.5" rx="4.25" fill="url(#eyeGrad)"/>
+    <!-- Specular Glint -->
+    <ellipse cx="37.5" cy="32.5" rx="1.3" ry="1.8" fill="#ffffff" opacity="0.95"/>
+  </g>
 </svg>
